@@ -1,1 +1,7 @@
+dist
+.output
+.wrangler
+.history
+.DS_Store
 node_modules
+.vercel
