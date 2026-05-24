@@ -6,32 +6,31 @@ import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Jisoo Jang — Product Designer" },
-      {
-        name: "description",
-        content:
-          "Portfolio of Jisoo Jang, a product designer crafting calm, considered interfaces.",
-      },
-      { property: "og:title", content: "Jisoo Jang — Product Designer" },
-      {
-        property: "og:description",
-        content: "Selected work in product, UX, and graphic design.",
-      },
-    ],
-  }),
-  component: Index,
+    head: () => ({
+        meta: [
+            { title: "Jisoo Jang — Product Designer" },
+            {
+                name: "description",
+                content: "Jisoo Jang's portfolio.",
+            },
+            { property: "og:title", content: "Jisoo Jang — Product Designer" },
+            {
+                property: "og:description",
+                content: "Product Design, UX/UI Design, Graphic Design.",
+            },
+        ],
+    }),
+    component: Index,
 });
 
 function Index() {
-  return (
-    <main className="min-h-screen bg-background text-foreground">
-      <Nav />
-      <Hero />
-      <WorkList />
-      <About />
-      <Contact />
-    </main>
-  );
+    return (
+        <main className="min-h-screen bg-background text-foreground">
+            <Nav />
+            <Hero />
+            <WorkList />
+            <About />
+            <Contact />
+        </main>
+    );
 }
