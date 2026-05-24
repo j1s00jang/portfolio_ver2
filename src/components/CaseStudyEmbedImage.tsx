@@ -167,7 +167,7 @@ export function CaseStudyEmbedImage({
                 </div>
               </div>
               <p className="pointer-events-none px-4 pb-3 text-center text-xs text-muted-foreground md:text-sm">
-                두 손가락으로 확대/축소 · 마우스 드래그로 이동 · 휠로 확대 · 더블클릭으로 초기화
+                Pinch to zoom · Drag to pan · Scroll to zoom · Double-click to reset
               </p>
             </div>
           </DialogPrimitive.Content>
