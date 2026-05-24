@@ -82,23 +82,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      /** Safari prefers ICO + legacy `shortcut icon`; put icons early in `<head>`. Bump `v` when replacing assets (Safari caches favicons heavily). */
       {
         rel: "icon",
-        href: "/favicon.ico",
-        sizes: "any",
+        type: "image/x-icon",
+        href: "/favicon.ico?v=1",
+        sizes: "32x32",
+      },
+      {
+        rel: "shortcut icon",
+        type: "image/x-icon",
+        href: "/favicon.ico?v=1",
       },
       {
         rel: "icon",
         type: "image/png",
-        href: "/favicon.png",
+        sizes: "200x200",
+        href: "/favicon.png?v=1",
       },
       {
         rel: "apple-touch-icon",
-        href: "/favicon.png",
+        sizes: "200x200",
+        href: "/favicon.png?v=1",
+      },
+      {
+        rel: "stylesheet",
+        href: appCss,
       },
     ],
   }),
