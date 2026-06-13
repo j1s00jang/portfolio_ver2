@@ -33,6 +33,8 @@ export type CaseStudyInlineImage = {
   frame?: "slot" | "hug" | "intrinsic";
   /** When set with `frame: "intrinsic"`, scales natural width (e.g. `0.8` = 80%). */
   displayScale?: number;
+  /** Grid / slot frame proportion (default `wide`). */
+  slotAspect?: "wide" | "portrait" | "tall" | "compact";
 };
 
 /** One flavour in the label + mockup carousel (`flavorCarousel` block). */
@@ -75,6 +77,15 @@ export type CaseStudyBlock =
       ];
     }
   | {
+      /** Four images in one row (`sm`+); equal-size cells, stacked on narrow screens. */
+      imageRow4: readonly [
+        CaseStudyInlineImage,
+        CaseStudyInlineImage,
+        CaseStudyInlineImage,
+        CaseStudyInlineImage,
+      ];
+    }
+  | {
       /** Inline MP4 (and similar) demos; paths from site root (`public/`). */
       video: {
         src: string;
@@ -92,10 +103,24 @@ export type CaseStudyBlock =
       figma: {
         url: string;
         title?: string;
-        /** iframe container height (default `min(72vh, 720px)`). */
+        /** Fixed iframe height (boards). Ignored when `aspectRatio` is set. */
         heightCss?: string;
+        /** Match the Figma frame ratio so the prototype fills the embed box. */
+        aspectRatio?: string;
         /** Switch embed URL — tab pills render top-right (copy each page’s share link from Figma). */
         tabs?: readonly { label: string; url: string }[];
+        /** Prototype scaling (`/proto/` URLs). Default `fit-width`. */
+        scaling?:
+          | "scale-down"
+          | "contain"
+          | "min-zoom"
+          | "scale-down-width"
+          | "fit-width"
+          | "free";
+        contentScaling?: "fixed" | "responsive";
+        deviceFrame?: boolean;
+        footer?: boolean;
+        hotspotHints?: boolean;
       };
     }
   | {

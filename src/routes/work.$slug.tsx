@@ -334,6 +334,31 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                     ))}
                 </div>,
             );
+        } else if ("imageRow4" in block && block.imageRow4) {
+            flushStrings();
+            const rowKey = key++;
+            const cells = block.imageRow4;
+            out.push(
+                <div
+                    key={`cs-${rowKey}`}
+                    className="my-10 grid w-full max-w-5xl shrink-0 grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 md:my-14"
+                >
+                    {cells.map((cell, i) => (
+                        <CaseStudyEmbedImage
+                            key={`cs-${rowKey}-c${i}`}
+                            embedVariant="gridCell"
+                            src={cell.src}
+                            alt={cell.alt}
+                            objectPosition={cell.objectPosition}
+                            fit={cell.fit}
+                            frame={cell.frame}
+                            displayScale={cell.displayScale}
+                            slotAspect="compact"
+                            lightbox={cell.lightbox === true}
+                        />
+                    ))}
+                </div>,
+            );
         } else if (
             "flavorCarousel" in block &&
             block.flavorCarousel &&
@@ -369,7 +394,13 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                     url={block.figma.url}
                     title={figmaTitle}
                     heightCss={heightCss}
+                    aspectRatio={block.figma.aspectRatio}
                     tabs={block.figma.tabs}
+                    scaling={block.figma.scaling}
+                    contentScaling={block.figma.contentScaling}
+                    deviceFrame={block.figma.deviceFrame}
+                    footer={block.figma.footer}
+                    hotspotHints={block.figma.hotspotHints}
                 />,
             );
         } else if (

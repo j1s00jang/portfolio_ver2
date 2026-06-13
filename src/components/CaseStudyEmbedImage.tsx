@@ -14,6 +14,14 @@ const objectPositionClass = {
   "top-left": "object-left-top",
 } as const;
 
+const slotAspectClass = {
+  wide: "aspect-[16/10] md:aspect-[21/10]",
+  portrait: "aspect-[3/4]",
+  tall: "aspect-[2/3] md:aspect-[3/5]",
+  /** ~80% of `tall` cell height (same width). */
+  compact: "aspect-[5/6] md:aspect-[3/4]",
+} as const;
+
 export function CaseStudyEmbedImage({
   src,
   alt,
@@ -21,6 +29,7 @@ export function CaseStudyEmbedImage({
   fit = "cover",
   frame = "slot",
   displayScale,
+  slotAspect = "wide",
   lightbox = false,
   embedVariant = "section",
 }: {
@@ -33,6 +42,7 @@ export function CaseStudyEmbedImage({
   frame?: "slot" | "hug" | "intrinsic";
   /** Scales intrinsic width after load (e.g. `0.8` = 80% of file size). */
   displayScale?: number;
+  slotAspect?: "wide" | "portrait" | "tall" | "compact";
   lightbox?: boolean;
   /** `gridCell`: no outer section margin — use inside `imagePair` row. */
   embedVariant?: "section" | "gridCell";
@@ -53,7 +63,10 @@ export function CaseStudyEmbedImage({
     ? "overflow-hidden rounded-md border border-border bg-muted w-fit max-w-full"
     : hugFrame
       ? "overflow-hidden rounded-md border border-border bg-muted w-full"
-      : "overflow-hidden rounded-md border border-border bg-muted aspect-[16/10] md:aspect-[21/10]";
+      : cn(
+          "overflow-hidden rounded-md border border-border bg-muted",
+          slotAspectClass[slotAspect],
+        );
 
   /** Contain-fit: centre in frame via flex so the bitmap doesn’t cling to edges. */
   const frameWrapClass =
