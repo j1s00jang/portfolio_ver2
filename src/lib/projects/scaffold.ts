@@ -4,7 +4,7 @@ export const scaffold: Project = {
     slug: "scaffold",
     title: "Scaffold",
     year: "Sept 2025 — Dec 2025",
-    role: "UX/UI Designer, UX Researcher",
+    role: "Product Design, UX/UI Design, User Research",
     summary:
         "AI-assisted, all-in-one financial resource platform that consolidates grant information for tradespeople.",
     introVisuals: [
@@ -223,9 +223,7 @@ export const scaffold: Project = {
                 afterStats:
                     "Traditional workflow average 112 min (Scenario:Google search → eligibility review → application drafting). With Scaffold average is 15 min, including creating a profile and applying eligible grants. It took average **3m** to re-applying eligible grants, excluding essay writing.",
             },
-            "(Usability Testing Doc)",
             { vspace: true },
-            "Presentation day photos",
             {
                 imageQuad: [
                     {

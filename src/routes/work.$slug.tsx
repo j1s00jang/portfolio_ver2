@@ -3,8 +3,14 @@ import { animate, motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { CaseStudyEmbedImage } from "../components/CaseStudyEmbedImage";
+import { CaseStudyFlavorCarousel } from "../components/CaseStudyFlavorCarousel";
+import { CaseStudyFigmaEmbed } from "../components/CaseStudyFigmaEmbed";
 import { Nav } from "../components/Nav";
-import { SectionNav, scaffoldSections } from "../components/SectionNav";
+import {
+    getProjectNavItems,
+    getProjectSections,
+    SectionNav,
+} from "../components/SectionNav";
 import { getProject, projects, type Project } from "../lib/projects";
 import type { CaseStudyBlock, CaseStudyStatItem } from "../lib/projects/types";
 
@@ -245,6 +251,8 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                     alt={block.image.alt}
                     objectPosition={block.image.objectPosition}
                     fit={block.image.fit}
+                    frame={block.image.frame}
+                    displayScale={block.image.displayScale}
                     lightbox={block.image.lightbox === true}
                 />,
             );
@@ -262,6 +270,8 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                         alt={left.alt}
                         objectPosition={left.objectPosition}
                         fit={left.fit}
+                        frame={left.frame}
+                        displayScale={left.displayScale}
                         lightbox={left.lightbox === true}
                     />
                     <CaseStudyEmbedImage
@@ -270,6 +280,8 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                         alt={right.alt}
                         objectPosition={right.objectPosition}
                         fit={right.fit}
+                        frame={right.frame}
+                        displayScale={right.displayScale}
                         lightbox={right.lightbox === true}
                     />
                 </div>,
@@ -291,10 +303,74 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                             alt={cell.alt}
                             objectPosition={cell.objectPosition}
                             fit={cell.fit}
+                            frame={cell.frame}
+                            displayScale={cell.displayScale}
                             lightbox={cell.lightbox === true}
                         />
                     ))}
                 </div>,
+            );
+        } else if ("imageTriple" in block && block.imageTriple) {
+            flushStrings();
+            const rowKey = key++;
+            const cells = block.imageTriple;
+            out.push(
+                <div
+                    key={`cs-${rowKey}`}
+                    className="my-10 grid w-full max-w-5xl shrink-0 grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 md:my-14"
+                >
+                    {cells.map((cell, i) => (
+                        <CaseStudyEmbedImage
+                            key={`cs-${rowKey}-c${i}`}
+                            embedVariant="gridCell"
+                            src={cell.src}
+                            alt={cell.alt}
+                            objectPosition={cell.objectPosition}
+                            fit={cell.fit}
+                            frame={cell.frame}
+                            displayScale={cell.displayScale}
+                            lightbox={cell.lightbox === true}
+                        />
+                    ))}
+                </div>,
+            );
+        } else if (
+            "flavorCarousel" in block &&
+            block.flavorCarousel &&
+            block.flavorCarousel.slides.length > 0
+        ) {
+            flushStrings();
+            out.push(
+                <CaseStudyFlavorCarousel
+                    key={`cs-${key++}`}
+                    slides={block.flavorCarousel.slides}
+                />,
+            );
+        } else if (
+            "figma" in block &&
+            block.figma &&
+            typeof block.figma.url === "string"
+        ) {
+            flushStrings();
+            const figmaTitle =
+                typeof block.figma.title === "string" &&
+                block.figma.title.length > 0
+                    ? block.figma.title
+                    : "Figma board";
+            const heightCss =
+                typeof block.figma.heightCss === "string" &&
+                block.figma.heightCss.trim().length > 0
+                    ? block.figma.heightCss.trim()
+                    : "min(72vh, 720px)";
+
+            out.push(
+                <CaseStudyFigmaEmbed
+                    key={`cs-${key++}`}
+                    url={block.figma.url}
+                    title={figmaTitle}
+                    heightCss={heightCss}
+                    tabs={block.figma.tabs}
+                />,
             );
         } else if (
             "video" in block &&
@@ -385,7 +461,7 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                             stats={block.stats}
                             tightBottom
                         />
-                        <p className="max-w-3xl text-lg leading-relaxed text-foreground/85">
+                        <p className="text-lg leading-relaxed text-foreground/85">
                             {formatInlineBold(after)}
                         </p>
                     </div>,
@@ -424,22 +500,8 @@ function CaseStudySectionBody({
 
     const blocks = project.caseStudySections?.[sectionId];
     if (blocks?.length) {
-        const useWideReadingColumn = blocks.some(
-            (b: CaseStudyBlock) =>
-                typeof b === "object" &&
-                b !== null &&
-                ("stats" in b ||
-                    "image" in b ||
-                    "imagePair" in b ||
-                    "imageQuad" in b ||
-                    "video" in b),
-        );
         return (
-            <div
-                className={`space-y-5 text-lg leading-relaxed text-foreground/85 ${
-                    useWideReadingColumn ? "max-w-5xl" : "max-w-3xl"
-                }`}
-            >
+            <div className="max-w-5xl space-y-5 text-lg leading-relaxed text-foreground/85">
                 {renderCaseStudyBlocks(blocks)}
             </div>
         );
@@ -499,12 +561,14 @@ function ProjectPage() {
     const project = Route.useLoaderData();
     const idx = projects.findIndex((p: Project) => p.slug === project.slug);
     const next = projects[(idx + 1) % projects.length];
+    const navItems = getProjectNavItems(project.slug);
+    const sections = getProjectSections(project.slug);
 
     return (
         <main className="min-h-screen bg-background text-foreground">
             <Nav />
             <SectionNav
-                sections={scaffoldSections}
+                items={navItems}
                 revealAfterSelector="#intro-visuals"
                 hideWhenPastSelector="#next-project"
             />
@@ -551,7 +615,7 @@ function ProjectPage() {
                                 key={i}
                                 className={`aspect-[4/3] overflow-hidden rounded-md border border-border ${
                                     tile
-                                        ? "bg-muted"
+                                        ? "group bg-muted"
                                         : "flex items-center justify-center bg-secondary"
                                 }`}
                             >
@@ -559,7 +623,7 @@ function ProjectPage() {
                                     <img
                                         src={tile.src}
                                         alt={tile.alt}
-                                        className="h-full w-full object-cover"
+                                        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                                         loading="lazy"
                                         decoding="async"
                                     />
@@ -577,19 +641,47 @@ function ProjectPage() {
             {/* Case study sections */}
             <div className="px-6 md:px-10 pb-24 md:pb-40">
                 <div className="mx-auto max-w-[1440px] lg:pl-64 space-y-24 md:space-y-32">
-                    {scaffoldSections.map((s) => (
+                    {sections.map((s, sectionIndex) => (
                         <section
                             key={s.id}
                             id={s.id}
-                            className="scroll-mt-24"
+                            className={
+                                s.projectHeading && sectionIndex > 0
+                                    ? "scroll-mt-24 pt-16 md:pt-28"
+                                    : "scroll-mt-24"
+                            }
                         >
-                            <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
-                                <span className="text-accent">{s.num}</span>{" "}
-                                &nbsp; {s.label}
-                            </p>
-                            <h2 className="font-display text-3xl md:text-5xl font-medium tracking-tight mb-6">
-                                {s.label}
-                            </h2>
+                            {s.projectHeading ? (
+                                <header
+                                    id={s.projectHeading.id}
+                                    className="mb-10 scroll-mt-24 md:mb-14"
+                                >
+                                    <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
+                                        <span className="text-accent">
+                                            {s.projectHeading.num}
+                                        </span>{" "}
+                                        &nbsp; {s.projectHeading.label}
+                                    </p>
+                                    <h2 className="font-display text-4xl md:text-6xl font-medium tracking-tight">
+                                        {s.projectHeading.label}
+                                    </h2>
+                                </header>
+                            ) : null}
+                            {s.num ? (
+                                <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
+                                    <span className="text-accent">{s.num}</span>{" "}
+                                    &nbsp; {s.label}
+                                </p>
+                            ) : null}
+                            {s.projectHeading ? (
+                                <h3 className="font-display text-3xl md:text-5xl font-medium tracking-tight mb-6">
+                                    {s.label}
+                                </h3>
+                            ) : (
+                                <h2 className="font-display text-3xl md:text-5xl font-medium tracking-tight mb-6">
+                                    {s.label}
+                                </h2>
+                            )}
                             <CaseStudySectionBody
                                 sectionId={s.id}
                                 project={project}

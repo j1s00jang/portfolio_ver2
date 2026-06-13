@@ -25,6 +25,21 @@ export type CaseStudyInlineImage = {
   lightbox?: boolean;
   /** `contain` shows the whole image centred in the slot; `cover` fills and crops (default). */
   fit?: "cover" | "contain";
+  /**
+   * `slot` (default): fixed aspect-ratio frame.
+   * `hug`: full width, height follows image aspect ratio.
+   * `intrinsic`: natural file dimensions, box wraps image (no upscale).
+   */
+  frame?: "slot" | "hug" | "intrinsic";
+  /** When set with `frame: "intrinsic"`, scales natural width (e.g. `0.8` = 80%). */
+  displayScale?: number;
+};
+
+/** One flavour in the label + mockup carousel (`flavorCarousel` block). */
+export type FlavorCarouselSlide = {
+  flavor: string;
+  label: CaseStudyInlineImage;
+  productMockup: CaseStudyInlineImage;
 };
 
 /** One paragraph/run of text, a bullet list, or a row of animated stats. */
@@ -52,6 +67,14 @@ export type CaseStudyBlock =
       ];
     }
   | {
+      /** Three images in one row (`sm`+); equal-size cells, stacked on narrow screens. */
+      imageTriple: readonly [
+        CaseStudyInlineImage,
+        CaseStudyInlineImage,
+        CaseStudyInlineImage,
+      ];
+    }
+  | {
       /** Inline MP4 (and similar) demos; paths from site root (`public/`). */
       video: {
         src: string;
@@ -62,6 +85,23 @@ export type CaseStudyBlock =
         widthPct?: number;
         /** Full CSS `max-height` value when this clip shouldn’t match the default cap. */
         maxHeightCss?: string;
+      };
+    }
+  | {
+      /** Figma file / board / prototype share URL (rendered as embed iframe). */
+      figma: {
+        url: string;
+        title?: string;
+        /** iframe container height (default `min(72vh, 720px)`). */
+        heightCss?: string;
+        /** Switch embed URL — tab pills render top-right (copy each page’s share link from Figma). */
+        tabs?: readonly { label: string; url: string }[];
+      };
+    }
+  | {
+      /** Label-on-scene + product mockup carousel (centre slide active, neighbours peek at 40% opacity). */
+      flavorCarousel: {
+        slides: readonly FlavorCarouselSlide[];
       };
     };
 

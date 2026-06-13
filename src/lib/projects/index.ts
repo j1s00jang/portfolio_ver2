@@ -1,6 +1,6 @@
 import type { Project } from "./types";
 import { montro } from "./montro";
-import { projectPulse } from "./project-pulse";
+import { projectTracker } from "./project-tracker";
 import { scaffold } from "./scaffold";
 import { visualDesign } from "./visual-design";
 
@@ -11,11 +11,11 @@ export type {
   Project,
   ProjectIntroVisual,
 } from "./types";
-export { montro, projectPulse, scaffold, visualDesign };
+export { montro, projectTracker, scaffold, visualDesign };
 
 /** Homepage / nav order */
 export const projects: Project[] = [
-  projectPulse,
+  projectTracker,
   scaffold,
   montro,
   visualDesign,

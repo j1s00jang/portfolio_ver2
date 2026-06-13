@@ -37,6 +37,13 @@ export function WorkList() {
                                 to="/work/$slug"
                                 params={{ slug: p.slug }}
                                 className="group block py-7 md:py-9"
+                                onClick={() => {
+                                    window.history.replaceState(
+                                        null,
+                                        "",
+                                        `${window.location.pathname}#work`,
+                                    );
+                                }}
                             >
                                 <div className="flex items-center justify-between gap-6">
                                     <div className="flex items-baseline gap-6 md:gap-10 min-w-0">

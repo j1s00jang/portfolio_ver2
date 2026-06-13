@@ -59,16 +59,16 @@
     --muted: oklch(0.94 0.008 80);
     --muted-foreground: oklch(0.5 0.005 80);
 
-    /* Accent */
-    --accent: #1eb698;
-    --accent-foreground: var(--foreground);
+    /* Accent — #aa1312 */
+    --accent: oklch(0.471 0.183 28.2);
+    --accent-foreground: var(--background);
 
     --destructive: oklch(0.452 0.196 28);
     --destructive-foreground: var(--background);
 
     --border: oklch(0.262 0 0 / 12%);
     --input: oklch(0.262 0 0 / 12%);
-    --ring: #1eb698;
+    --ring: oklch(0.471 0.183 28.2);
 }
 
 .dark {
@@ -89,7 +89,8 @@
     --muted: oklch(0.24 0.005 80);
     --muted-foreground: oklch(0.68 0.008 80);
 
-    --accent: #00c79c;
+    /* Accent — #dd473b */
+    --accent: oklch(0.609 0.189 28.5);
     --accent-foreground: oklch(0.18 0.005 80);
 
     --destructive: oklch(0.62 0.2 28);
@@ -97,7 +98,7 @@
 
     --border: oklch(0.95 0.008 80 / 12%);
     --input: oklch(0.95 0.008 80 / 12%);
-    --ring: #00c79c;
+    --ring: oklch(0.609 0.189 28.5);
 }
 
 @layer base {

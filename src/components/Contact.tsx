@@ -3,9 +3,17 @@ import { FileText, Linkedin, Mail, Instagram } from "lucide-react";
 
 const email = "jisoo.design@icloud.com";
 
+/** Bump when replacing `public/Jisoo_Jang_Resume.pdf` — busts browser/CDN cache for the same filename. */
+const resumeVersion = "20260607";
+
 const links = [
     { label: "Email", href: `mailto:${email}`, icon: Mail, external: false },
-    { label: "Resume", href: "/Jisoo_Jang_Resume.pdf", icon: FileText, external: true },
+    {
+        label: "Resume",
+        href: `/Jisoo_Jang_Resume.pdf?v=${resumeVersion}`,
+        icon: FileText,
+        external: true,
+    },
     {
         label: "LinkedIn",
         href: "https://www.linkedin.com/in/jisoojang",
@@ -32,7 +40,8 @@ export function Contact() {
                         Contact
                     </h2>
                     <span className="text-xs text-muted-foreground">
-                        I'd love to hear from you!
+                        I'm always open to talking about design and new
+                        opportunities!
                     </span>
                 </div>
 
@@ -43,7 +52,7 @@ export function Contact() {
                     transition={{ duration: 0.7 }}
                 >
                     <p className="font-display text-2xl md:text-4xl font-medium tracking-tight text-foreground/60 mb-4">
-                        Reach out to me!
+                        Feel free to reach out to me!
                     </p>
                     <a
                         href={`mailto:${email}`}

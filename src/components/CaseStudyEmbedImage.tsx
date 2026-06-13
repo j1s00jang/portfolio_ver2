@@ -2,6 +2,7 @@
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
+import { type CSSProperties } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 import { cn } from "@/lib/utils";
@@ -18,6 +19,8 @@ export function CaseStudyEmbedImage({
   alt,
   objectPosition = "center",
   fit = "cover",
+  frame = "slot",
+  displayScale,
   lightbox = false,
   embedVariant = "section",
 }: {
@@ -26,23 +29,53 @@ export function CaseStudyEmbedImage({
   objectPosition?: keyof typeof objectPositionClass;
   /** `contain`: full image centred in frame; `cover`: crop-filled (default). */
   fit?: "cover" | "contain";
+  /** `hug`: full-width wrap; `intrinsic`: natural file size, no upscale. */
+  frame?: "slot" | "hug" | "intrinsic";
+  /** Scales intrinsic width after load (e.g. `0.8` = 80% of file size). */
+  displayScale?: number;
   lightbox?: boolean;
   /** `gridCell`: no outer section margin — use inside `imagePair` row. */
   embedVariant?: "section" | "gridCell";
 }) {
   const posClass = objectPositionClass[objectPosition];
+  const intrinsicFrame = frame === "intrinsic" && fit === "contain";
+  const hugFrame = frame === "hug" && fit === "contain";
+  const intrinsicScale =
+    intrinsicFrame &&
+    displayScale != null &&
+    displayScale > 0 &&
+    displayScale !== 1;
+  const scaleWrapStyle: CSSProperties | undefined = intrinsicScale
+    ? { zoom: displayScale }
+    : undefined;
 
-  const frameShellClass =
-    "overflow-hidden rounded-md border border-border bg-muted aspect-[16/10] md:aspect-[21/10]";
+  const frameShellClass = intrinsicFrame
+    ? "overflow-hidden rounded-md border border-border bg-muted w-fit max-w-full"
+    : hugFrame
+      ? "overflow-hidden rounded-md border border-border bg-muted w-full"
+      : "overflow-hidden rounded-md border border-border bg-muted aspect-[16/10] md:aspect-[21/10]";
 
   /** Contain-fit: centre in frame via flex so the bitmap doesn’t cling to edges. */
   const frameWrapClass =
-    fit === "contain"
-      ? cn(frameShellClass, "flex items-center justify-center")
-      : frameShellClass;
+    intrinsicFrame || hugFrame
+      ? frameShellClass
+      : fit === "contain"
+        ? cn(frameShellClass, "flex items-center justify-center")
+        : frameShellClass;
 
-  const imgClass =
-    fit === "contain"
+  const imgClass = intrinsicFrame
+    ? cn(
+        "block h-auto w-auto max-w-full",
+        lightbox &&
+          "transition-transform duration-300 ease-out group-hover:scale-[1.015]",
+      )
+    : hugFrame
+      ? cn(
+          "block h-auto w-full max-w-full",
+          lightbox &&
+            "transition-transform duration-300 ease-out group-hover:scale-[1.015]",
+        )
+      : fit === "contain"
       ? cn(
           "max-h-full max-w-full object-contain object-center",
           lightbox &&
@@ -58,14 +91,19 @@ export function CaseStudyEmbedImage({
   const embedVariantClasses =
     embedVariant === "gridCell"
       ? "my-0 w-full min-w-0 max-w-none"
-      : "my-10 w-full max-w-5xl md:my-14";
+      : intrinsicFrame
+        ? "my-10 w-fit max-w-full md:my-14"
+        : "my-10 w-full max-w-5xl md:my-14";
 
   const figureClassName = cn("shrink-0", embedVariantClasses);
 
   if (!lightbox) {
     return (
       <figure className={figureClassName}>
-        <div className={cn("w-full", frameWrapClass)}>
+        <div
+          className={cn(intrinsicFrame ? "w-fit max-w-full" : "w-full", frameWrapClass)}
+          style={scaleWrapStyle}
+        >
           <img
             src={src}
             alt={alt}
@@ -81,11 +119,17 @@ export function CaseStudyEmbedImage({
   const previewButton = (
     <button
       type="button"
-      className="group block w-full cursor-zoom-in rounded-md bg-transparent p-0 text-left outline-none ring-offset-background transition-shadow focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      className={cn(
+        "group block cursor-zoom-in rounded-md bg-transparent p-0 text-left outline-none ring-offset-background transition-shadow focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        intrinsicFrame ? "w-fit max-w-full" : "w-full",
+      )}
       aria-haspopup="dialog"
       aria-label={`Open fullscreen: ${alt}`}
     >
-      <div className={cn("w-full", frameWrapClass)}>
+      <div
+        className={cn(intrinsicFrame ? "w-fit max-w-full" : "w-full", frameWrapClass)}
+        style={scaleWrapStyle}
+      >
         <img
           src={src}
           alt=""
