@@ -12,7 +12,10 @@ export default defineConfig({
                 entry: "server",
             },
         }),
-        nitro(),
+        // On Vercel, Nitro must emit `.vercel/output` (serverless) — not static `dist`.
+        nitro({
+            preset: process.env.VERCEL ? "vercel" : undefined,
+        }),
         react(),
         tsconfigPaths(),
         tailwindcss(),
