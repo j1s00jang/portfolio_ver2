@@ -16,10 +16,14 @@ const objectPositionClass = {
 
 const slotAspectClass = {
     wide: "aspect-[16/10] md:aspect-[21/10]",
+    /** Shorter than `wide` — brochure spreads, hero strips. */
+    banner: "aspect-[21/8] md:aspect-[3/1]",
     portrait: "aspect-[3/4]",
     tall: "aspect-[2/3] md:aspect-[3/5]",
     /** ~80% of `tall` cell height (same width). */
     compact: "aspect-[5/6] md:aspect-[3/4]",
+    /** No fixed aspect — fills stretched grid row (pair with `items-stretch`). */
+    rowFill: "",
 } as const;
 
 export function CaseStudyEmbedImage({
@@ -42,12 +46,15 @@ export function CaseStudyEmbedImage({
     frame?: "slot" | "hug" | "intrinsic";
     /** Scales intrinsic width after load (e.g. `0.8` = 80% of file size). */
     displayScale?: number;
-    slotAspect?: "wide" | "portrait" | "tall" | "compact";
+    slotAspect?: "wide" | "banner" | "portrait" | "tall" | "compact" | "rowFill";
     lightbox?: boolean;
     /** `gridCell`: no outer section margin — use inside `imagePair` row. */
     embedVariant?: "section" | "gridCell";
 }) {
     const posClass = objectPositionClass[objectPosition];
+    const fillsRow = slotAspect === "rowFill";
+    const stretchInGrid =
+        fillsRow || (fit === "contain" && embedVariant === "gridCell");
     const intrinsicFrame = frame === "intrinsic" && fit === "contain";
     const hugFrame = frame === "hug" && fit === "contain";
     const intrinsicScale =
@@ -63,17 +70,19 @@ export function CaseStudyEmbedImage({
         ? "overflow-hidden rounded-md border border-border bg-muted w-fit max-w-full"
         : hugFrame
           ? "overflow-hidden rounded-md border border-border bg-muted w-full"
-          : cn(
-                "overflow-hidden rounded-md border border-border bg-muted",
-                slotAspectClass[slotAspect],
-            );
+          : fillsRow
+            ? "h-full min-h-0 w-full overflow-hidden rounded-md border border-border bg-muted"
+            : cn(
+                  "overflow-hidden rounded-md border border-border bg-muted",
+                  slotAspectClass[slotAspect],
+              );
 
     /** Contain-fit: centre in frame via flex so the bitmap doesn’t cling to edges. */
     const frameWrapClass =
         intrinsicFrame || hugFrame
             ? frameShellClass
             : fit === "contain"
-              ? cn(frameShellClass, "flex items-center justify-center")
+              ? cn(frameShellClass, "flex h-full w-full items-center justify-center")
               : frameShellClass;
 
     const imgClass = intrinsicFrame
@@ -90,7 +99,9 @@ export function CaseStudyEmbedImage({
             )
           : fit === "contain"
             ? cn(
-                  "max-h-full max-w-full object-contain object-center",
+                  intrinsicFrame || hugFrame
+                      ? "max-h-full max-w-full object-contain object-center"
+                      : "h-full w-full object-contain object-center",
                   lightbox &&
                       "transition-transform duration-300 ease-out group-hover:scale-[1.015]",
               )
@@ -103,12 +114,19 @@ export function CaseStudyEmbedImage({
 
     const embedVariantClasses =
         embedVariant === "gridCell"
-            ? "my-0 w-full min-w-0 max-w-none"
+            ? cn(
+                  "my-0 min-h-0 w-full min-w-0 max-w-none",
+                  stretchInGrid && "flex flex-1 flex-col",
+              )
             : intrinsicFrame
               ? "my-10 w-fit max-w-full md:my-14"
               : "my-10 w-full max-w-5xl md:my-14";
 
-    const figureClassName = cn("shrink-0", embedVariantClasses);
+    const figureClassName = cn(
+        "shrink-0",
+        embedVariantClasses,
+        stretchInGrid && "flex min-h-0 flex-1 flex-col",
+    );
 
     if (!lightbox) {
         return (
@@ -116,6 +134,7 @@ export function CaseStudyEmbedImage({
                 <div
                     className={cn(
                         intrinsicFrame ? "w-fit max-w-full" : "w-full",
+                        stretchInGrid && "min-h-0 flex-1",
                         frameWrapClass,
                     )}
                     style={scaleWrapStyle}
@@ -138,6 +157,7 @@ export function CaseStudyEmbedImage({
             className={cn(
                 "group block cursor-zoom-in rounded-md bg-transparent p-0 text-left outline-none ring-offset-background transition-shadow focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                 intrinsicFrame ? "w-fit max-w-full" : "w-full",
+                stretchInGrid && "flex min-h-0 flex-1 flex-col",
             )}
             aria-haspopup="dialog"
             aria-label={`Open fullscreen: ${alt}`}
@@ -145,6 +165,7 @@ export function CaseStudyEmbedImage({
             <div
                 className={cn(
                     intrinsicFrame ? "w-fit max-w-full" : "w-full",
+                    stretchInGrid && "min-h-0 flex-1",
                     frameWrapClass,
                 )}
                 style={scaleWrapStyle}

@@ -34,7 +34,13 @@ export type CaseStudyInlineImage = {
   /** When set with `frame: "intrinsic"`, scales natural width (e.g. `0.8` = 80%). */
   displayScale?: number;
   /** Grid / slot frame proportion (default `wide`). */
-  slotAspect?: "wide" | "portrait" | "tall" | "compact";
+    slotAspect?: "wide" | "banner" | "portrait" | "tall" | "compact" | "rowFill";
+};
+
+/** One page in a flipbook (`flipbook` block). */
+export type FlipbookPage = {
+  src: string;
+  alt: string;
 };
 
 /** One flavour in the label + mockup carousel (`flavorCarousel` block). */
@@ -76,9 +82,19 @@ export type CaseStudyBlock =
         CaseStudyInlineImage,
       ];
     }
-  | {
+    | {
       /** Four images in one row (`sm`+); equal-size cells, stacked on narrow screens. */
       imageRow4: readonly [
+        CaseStudyInlineImage,
+        CaseStudyInlineImage,
+        CaseStudyInlineImage,
+        CaseStudyInlineImage,
+      ];
+    }
+  | {
+      /** Two equal cells on row 1; row 2 spans 2:1:1 (four-column grid). */
+      imageGrid2_211: readonly [
+        CaseStudyInlineImage,
         CaseStudyInlineImage,
         CaseStudyInlineImage,
         CaseStudyInlineImage,
@@ -127,6 +143,13 @@ export type CaseStudyBlock =
       /** Label-on-scene + product mockup carousel (centre slide active, neighbours peek at 40% opacity). */
       flavorCarousel: {
         slides: readonly FlavorCarouselSlide[];
+      };
+    }
+  | {
+      /** Interactive page-flip viewer for multi-page spreads (e.g. brochure). */
+      flipbook: {
+        pages: readonly FlipbookPage[];
+        title?: string;
       };
     };
 

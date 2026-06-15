@@ -27,7 +27,7 @@ export const visualDesign: Project = {
     ],
     caseStudySections: {
         "fizzypop-overview": [
-            "**Branding / Packaging / Label design / Illustration**",
+            "**Branding / Packaging / Label Design / Illustration**",
             { vspace: true },
             "Fizzypop is **an all-natural, real-fruit infused sparkling water** available in three refreshing flavours. Made with **zero sugar** and **no artificial sweeteners**, it delivers a clean, light taste that's easy to enjoy anytime. Whether you're relaxing at the beach, spending time with friends, or simply taking a break from your day.** Fizzypop brings a refreshing burst of flavour wherever life takes you.**",
         ],
@@ -136,7 +136,7 @@ export const visualDesign: Project = {
             },
         ],
         "first-cat-overview": [
-            "**Interaction design / Illustration / Educational Design / Scenario-based Learning**",
+            "**Interaction Design / Illustration / Educational Design / Scenario-based Learning**",
             { vspace: true },
             "**Hello, My First Cat!** is a playful, scenario-based learning tutorial designed to help first-time cat owners better understand their new furry friend. Every scenario is inspired by real experiences and situations that often confuse new cat parents. With the fun interactive elements and decision-making moments, users learn and understand the cat’s body language through explanations of what the behaviour actually means.",
         ],
@@ -246,7 +246,7 @@ export const visualDesign: Project = {
                 figma: {
                     url: "https://www.figma.com/proto/eMqTulTEWvaUaudlk26b3F/Design3-CP05-Hello--My-First-Cat-?node-id=98-104",
                     title: "Hello, My First Cat! interactive prototype",
-                    aspectRatio: "812 / 500",
+                    aspectRatio: "810 / 500",
                     scaling: "scale-down-width",
                     contentScaling: "fixed",
                     deviceFrame: false,
@@ -256,14 +256,115 @@ export const visualDesign: Project = {
             },
         ],
         "travel-brochure-overview": [
-            "**Editorial design / Information hierarchy / Layout design**",
+            "**Editorial Design / Information Hierarchy / Layout System / Visual Storytelling**",
             { vspace: true },
-            "**Christmas Travel Brochure** is a travel brochure designed to help travelers plan their Christmas travel. The brochure is designed to be a fun and engaging way for travelers to plan their Christmas travel.",
+            "**Follow the light of Weihnachten** (*The German word for Christmas) is an editorial travel brochure project that curates a holiday travel experience through a magazine-inspired reading experience. The concept invites readers to explore the charm of European Christmas markets, following an itinerary from from Berlin, Germany, to Vienna, Austria.",
+            "Inspired by the expeience of browsing Christmas Markets in the evening, theidea of **following the light** was created. Star-guided paths were incoporated into the map design to visualize the journey and chrsitmas lights were used every itinerary day throughout the brochure. Travel information was organized using a consistent layout system, carefully considering information hierarchy, typography and readability.",
+            "Through visual storytelling, the brochure transforms conceptual travel package into a visually engaging experience, allowing readers to feel as through they are travelling the Christmas markets as they turn each page. ",
         ],
         "travel-brochure-process": [
-            "**Travel brochure design:** This project was designed for travelers to make planning their Christmas travel in a fun, playful and enjoyable way. A game-like user experience was created to encourage curiosity and reduce the confusion often felt by travelers.",
+            "The brochure was designed to capture the warmth and excitement of the holiday season while presenting travel information in a clear and visually engaging way. For the user's engaging and readability, the content was organized into digestible sections with a strong visual hierarchy.",
+            "A magazine-inspired approach was used to balance imagery, typography, and white space, allowing readers to naturally scan information and enjoy the experience of exploring the brochure.",
+            { vspace: true },
+            {
+                imageGrid2_211: [
+                    {
+                        src: "/VisualDesign/27_brochure_asset01.png",
+                        alt: "Christmas Travel Brochure — design process asset 1",
+                        lightbox: true,
+                        fit: "cover",
+                    },
+                    {
+                        src: "/VisualDesign/28_brochure_asset02.webp",
+                        alt: "Christmas Travel Brochure — design process asset 2",
+                        lightbox: true,
+                        fit: "contain",
+                    },
+                    {
+                        src: "/VisualDesign/29_brochure_asset03.png",
+                        alt: "Christmas Travel Brochure — design process asset 3",
+                        lightbox: true,
+                        fit: "cover",
+                    },
+                    {
+                        src: "/VisualDesign/30_brochure_asset04.jpg",
+                        alt: "Christmas Travel Brochure — design process asset 4",
+                        lightbox: true,
+                        fit: "cover",
+                    },
+                    {
+                        src: "/VisualDesign/31_brochure_asset05.png",
+                        alt: "Christmas Travel Brochure — design process asset 5",
+                        lightbox: true,
+                        fit: "cover",
+                    },
+                ],
+            },
+            {
+                ul: [
+                    "**Layout System**: A modular grid system was used to create a consistent layout across pages. Each section was designed to be visually distinct while maintaining a cohesive visual language. The use of white space and modular elements allowed for easy navigation and readability.",
+                    "**Information Hierarchy**: The travel information was organized using a consistent layout system, carefully considering information hierarchy, typography and readability.",
+                    "**Visual Storytelling**: The brochure transforms conceptual travel package into a visually engaging experience, allowing readers to feel as through they are travelling the Christmas markets as they turn each page.",
+                ],
+            },
         ],
-        "travel-brochure-final-outcome": ["Coming soon..."],
+        "travel-brochure-final-outcome": [
+            {
+                flipbook: {
+                    title: "Follow the light of Weihnachten — brochure",
+                    pages: [
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure01.png",
+                            alt: "Christmas Travel Brochure — page 1",
+                        },
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure012.png",
+                            alt: "Christmas Travel Brochure — page 2",
+                        },
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure013.png",
+                            alt: "Christmas Travel Brochure — page 3",
+                        },
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure014.png",
+                            alt: "Christmas Travel Brochure — page 4",
+                        },
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure015.png",
+                            alt: "Christmas Travel Brochure — page 5",
+                        },
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure016.png",
+                            alt: "Christmas Travel Brochure — page 6",
+                        },
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure017.png",
+                            alt: "Christmas Travel Brochure — page 7",
+                        },
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure018.png",
+                            alt: "Christmas Travel Brochure — page 8",
+                        },
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure019.png",
+                            alt: "Christmas Travel Brochure — page 9",
+                        },
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure0110.png",
+                            alt: "Christmas Travel Brochure — page 10",
+                        },
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure0111.png",
+                            alt: "Christmas Travel Brochure — page 11",
+                        },
+                        {
+                            src: "/VisualDesign/flipbook/christmas_travel_brochure0112.png",
+                            alt: "Christmas Travel Brochure — page 12",
+                        },
+                    ],
+                },
+            },
+        ],
     },
     tags: ["Visual Design", "Brand", "Typography"],
 };

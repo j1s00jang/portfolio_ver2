@@ -3,6 +3,7 @@ import { animate, motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { CaseStudyEmbedImage } from "../components/CaseStudyEmbedImage";
+import { CaseStudyFlipbook } from "../components/CaseStudyFlipbook";
 import { CaseStudyFlavorCarousel } from "../components/CaseStudyFlavorCarousel";
 import { CaseStudyFigmaEmbed } from "../components/CaseStudyFigmaEmbed";
 import { Nav } from "../components/Nav";
@@ -359,6 +360,93 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                     ))}
                 </div>,
             );
+        } else if ("imageGrid2_211" in block && block.imageGrid2_211) {
+            flushStrings();
+            const rowKey = key++;
+            const cells = block.imageGrid2_211;
+            const renderGridCell = (
+                cell: (typeof cells)[number],
+                cellKey: string,
+                slotAspectOverride?: typeof cell.slotAspect | "rowFill",
+            ) => (
+                <CaseStudyEmbedImage
+                    key={cellKey}
+                    embedVariant="gridCell"
+                    src={cell.src}
+                    alt={cell.alt}
+                    objectPosition={cell.objectPosition}
+                    fit={cell.fit}
+                    frame={cell.frame}
+                    displayScale={cell.displayScale}
+                    slotAspect={slotAspectOverride ?? cell.slotAspect}
+                    lightbox={cell.lightbox === true}
+                />
+            );
+            out.push(
+                <div
+                    key={`cs-${rowKey}`}
+                    className="my-10 flex w-full max-w-5xl shrink-0 flex-col gap-3 sm:gap-4 md:my-14"
+                >
+                    <div className="relative w-full">
+                        <div
+                            className="pointer-events-none invisible flex gap-3 sm:gap-4"
+                            aria-hidden
+                        >
+                            <div className="aspect-[21/8] min-w-0 flex-1 md:aspect-[3/1]" />
+                            <div className="aspect-[21/8] min-w-0 flex-1 md:aspect-[3/1]" />
+                        </div>
+                        <div className="absolute inset-0 flex gap-3 sm:gap-4">
+                            <div className="flex min-h-0 min-w-0 flex-1">
+                                {renderGridCell(
+                                    cells[0],
+                                    `cs-${rowKey}-c0`,
+                                    "rowFill",
+                                )}
+                            </div>
+                            <div className="flex min-h-0 min-w-0 flex-1">
+                                {renderGridCell(
+                                    cells[1],
+                                    `cs-${rowKey}-c1`,
+                                    "rowFill",
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="relative w-full">
+                        <div
+                            className="pointer-events-none invisible flex gap-3 sm:gap-4"
+                            aria-hidden
+                        >
+                            <div className="aspect-[16/10] min-w-0 flex-[2] md:aspect-[21/10]" />
+                            <div className="min-w-0 flex-1" />
+                            <div className="min-w-0 flex-1" />
+                        </div>
+                        <div className="absolute inset-0 flex gap-3 sm:gap-4">
+                            <div className="flex min-h-0 min-w-0 flex-[2]">
+                                {renderGridCell(
+                                    cells[2],
+                                    `cs-${rowKey}-c2`,
+                                    "rowFill",
+                                )}
+                            </div>
+                            <div className="flex min-h-0 min-w-0 flex-1">
+                                {renderGridCell(
+                                    cells[3],
+                                    `cs-${rowKey}-c3`,
+                                    "rowFill",
+                                )}
+                            </div>
+                            <div className="flex min-h-0 min-w-0 flex-1">
+                                {renderGridCell(
+                                    cells[4],
+                                    `cs-${rowKey}-c4`,
+                                    "rowFill",
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>,
+            );
         } else if (
             "flavorCarousel" in block &&
             block.flavorCarousel &&
@@ -369,6 +457,19 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                 <CaseStudyFlavorCarousel
                     key={`cs-${key++}`}
                     slides={block.flavorCarousel.slides}
+                />,
+            );
+        } else if (
+            "flipbook" in block &&
+            block.flipbook &&
+            block.flipbook.pages.length > 0
+        ) {
+            flushStrings();
+            out.push(
+                <CaseStudyFlipbook
+                    key={`cs-${key++}`}
+                    pages={block.flipbook.pages}
+                    title={block.flipbook.title}
                 />,
             );
         } else if (
