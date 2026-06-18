@@ -37,6 +37,15 @@ export type CaseStudyInlineImage = {
     slotAspect?: "wide" | "banner" | "portrait" | "tall" | "compact" | "rowFill";
 };
 
+/** One screen in a sidebar gallery (`screenGallery` block). */
+export type ScreenGalleryItem = {
+  label: string;
+  /** Optional fixed nav lines — prevents layout shift when labels wrap. */
+  navLines?: readonly string[];
+  src: string;
+  alt: string;
+};
+
 /** One page in a flipbook (`flipbook` block). */
 export type FlipbookPage = {
   src: string;
@@ -150,6 +159,12 @@ export type CaseStudyBlock =
       flipbook: {
         pages: readonly FlipbookPage[];
         title?: string;
+      };
+    }
+  | {
+      /** Sidebar nav + preview for a set of UI screens (e.g. existing product audit). */
+      screenGallery: {
+        screens: readonly ScreenGalleryItem[];
       };
     };
 

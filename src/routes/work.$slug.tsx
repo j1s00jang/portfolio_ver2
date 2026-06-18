@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { CaseStudyEmbedImage } from "../components/CaseStudyEmbedImage";
 import { CaseStudyFlipbook } from "../components/CaseStudyFlipbook";
 import { CaseStudyFlavorCarousel } from "../components/CaseStudyFlavorCarousel";
+import { CaseStudyScreenGallery } from "../components/CaseStudyScreenGallery";
 import { CaseStudyFigmaEmbed } from "../components/CaseStudyFigmaEmbed";
 import { Nav } from "../components/Nav";
 import {
@@ -457,6 +458,18 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                 <CaseStudyFlavorCarousel
                     key={`cs-${key++}`}
                     slides={block.flavorCarousel.slides}
+                />,
+            );
+        } else if (
+            "screenGallery" in block &&
+            block.screenGallery &&
+            block.screenGallery.screens.length > 0
+        ) {
+            flushStrings();
+            out.push(
+                <CaseStudyScreenGallery
+                    key={`cs-${key++}`}
+                    screens={block.screenGallery.screens}
                 />,
             );
         } else if (
