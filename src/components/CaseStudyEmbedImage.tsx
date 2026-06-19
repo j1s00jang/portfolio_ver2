@@ -58,6 +58,7 @@ export function CaseStudyEmbedImage({
         fillsRow || (fit === "contain" && embedVariant === "gridCell");
     const intrinsicFrame = frame === "intrinsic" && fit === "contain";
     const hugFrame = frame === "hug" && fit === "contain";
+    const slotFrame = !intrinsicFrame && !hugFrame && !fillsRow;
     const intrinsicScale =
         intrinsicFrame &&
         displayScale != null &&
@@ -75,6 +76,7 @@ export function CaseStudyEmbedImage({
             ? "h-full min-h-0 w-full overflow-hidden rounded-md border border-border bg-muted"
             : cn(
                   "overflow-hidden rounded-md border border-border bg-muted",
+                  slotFrame && fit === "cover" && "relative",
                   slotAspectClass[slotAspect],
               );
 
@@ -107,7 +109,9 @@ export function CaseStudyEmbedImage({
                       "transition-transform duration-300 ease-out group-hover:scale-[1.015]",
               )
             : cn(
-                  "h-full w-full object-cover",
+                  slotFrame && fit === "cover"
+                      ? "absolute inset-0 h-full w-full object-cover"
+                      : "h-full w-full object-cover",
                   posClass,
                   lightbox &&
                       "transition-transform duration-300 ease-out group-hover:scale-[1.015]",

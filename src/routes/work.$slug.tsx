@@ -39,6 +39,11 @@ function isNumberedBulletLine(para: string): boolean {
     return /^\d+\.\s/.test(para) || /^\*\*\d+\.\s/.test(para);
 }
 
+/** Section subheading immediately followed by a bullet list (e.g. "**01. …**"). */
+function isNumberedSectionHeading(para: string): boolean {
+    return /^\*\*\d+\.\s/.test(para);
+}
+
 /** Tighten vertical gap between numbered lines (e.g. "1. …") while keeping normal paragraphs looser. */
 function groupParagraphRuns(paragraphs: string[]) {
     const groups: { numbered: boolean; items: string[] }[] = [];
@@ -266,28 +271,42 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                     key={`cs-${key++}`}
                     className="my-10 grid w-full max-w-5xl shrink-0 grid-cols-1 gap-4 sm:grid-cols-2 md:my-14"
                 >
-                    <CaseStudyEmbedImage
-                        embedVariant="gridCell"
-                        src={left.src}
-                        alt={left.alt}
-                        objectPosition={left.objectPosition}
-                        fit={left.fit}
-                        frame={left.frame}
-                        displayScale={left.displayScale}
-                        slotAspect={left.slotAspect}
-                        lightbox={left.lightbox === true}
-                    />
-                    <CaseStudyEmbedImage
-                        embedVariant="gridCell"
-                        src={right.src}
-                        alt={right.alt}
-                        objectPosition={right.objectPosition}
-                        fit={right.fit}
-                        frame={right.frame}
-                        displayScale={right.displayScale}
-                        slotAspect={right.slotAspect}
-                        lightbox={right.lightbox === true}
-                    />
+                    <div className="min-w-0">
+                        <CaseStudyEmbedImage
+                            embedVariant="gridCell"
+                            src={left.src}
+                            alt={left.alt}
+                            objectPosition={left.objectPosition}
+                            fit={left.fit}
+                            frame={left.frame}
+                            displayScale={left.displayScale}
+                            slotAspect={left.slotAspect}
+                            lightbox={left.lightbox === true}
+                        />
+                        {left.caption ? (
+                            <p className="mt-2.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground md:text-xs md:tracking-[0.2em]">
+                                {left.caption}
+                            </p>
+                        ) : null}
+                    </div>
+                    <div className="min-w-0">
+                        <CaseStudyEmbedImage
+                            embedVariant="gridCell"
+                            src={right.src}
+                            alt={right.alt}
+                            objectPosition={right.objectPosition}
+                            fit={right.fit}
+                            frame={right.frame}
+                            displayScale={right.displayScale}
+                            slotAspect={right.slotAspect}
+                            lightbox={right.lightbox === true}
+                        />
+                        {right.caption ? (
+                            <p className="mt-2.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground md:text-xs md:tracking-[0.2em]">
+                                {right.caption}
+                            </p>
+                        ) : null}
+                    </div>
                 </div>,
             );
         } else if ("imageQuad" in block && block.imageQuad) {
@@ -582,16 +601,38 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                 </figure>,
             );
         } else if ("ul" in block && Array.isArray(block.ul)) {
-            flushStrings();
+            const headingBeforeList =
+                stringRun.length === 1 &&
+                isNumberedSectionHeading(stringRun[0]!);
+            const heading = headingBeforeList ? stringRun[0]! : null;
+            if (headingBeforeList) {
+                stringRun = [];
+            } else {
+                flushStrings();
+            }
             out.push(
-                <ul
-                    key={`cs-${key++}`}
-                    className="list-disc space-y-2 pl-6 marker:text-foreground/70"
-                >
-                    {block.ul.map((item: string, i: number) => (
-                        <li key={i}>{formatInlineBold(item)}</li>
-                    ))}
-                </ul>,
+                heading ? (
+                    <div
+                        key={`cs-${key++}`}
+                        className="space-y-1.5"
+                    >
+                        <p>{formatInlineBold(heading)}</p>
+                        <ul className="list-disc space-y-1 pl-6 marker:text-foreground/70">
+                            {block.ul.map((item: string, i: number) => (
+                                <li key={i}>{formatInlineBold(item)}</li>
+                            ))}
+                        </ul>
+                    </div>
+                ) : (
+                    <ul
+                        key={`cs-${key++}`}
+                        className="list-disc space-y-1 pl-6 marker:text-foreground/70"
+                    >
+                        {block.ul.map((item: string, i: number) => (
+                            <li key={i}>{formatInlineBold(item)}</li>
+                        ))}
+                    </ul>
+                ),
             );
         } else if ("stats" in block && Array.isArray(block.stats)) {
             flushStrings();

@@ -21,6 +21,8 @@ export type CaseStudyInlineImage = {
     | "top"
     | "bottom"
     | "top-left";
+  /** Optional label under the figure (e.g. Before / After). */
+  caption?: string;
   /** Zoom / pan fullscreen viewer on click (`react-zoom-pan-pinch`). */
   lightbox?: boolean;
   /** `contain` shows the whole image centred in the slot; `cover` fills and crops (default). */

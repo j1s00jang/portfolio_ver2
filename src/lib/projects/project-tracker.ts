@@ -129,7 +129,7 @@ export const projectTracker: Project = {
                     },
                 ],
             },
-            "**2. Poor Accessibility:** Several colour combinations did not provide enough contrast for comfortable readability. For example, dark purple on black had a contrast ratio of 4.11, while light red on pink had a contrast ratio of 1.10. These low-contrast combinations made it harder to distinguish key information and interactive elements.",
+            "**2. Poor Accessibility:** Several colour combinations did not provide enough contrast for comfortable readability. For example, dark purple on black had a contrast ratio of 4.04, while light red on pink had a contrast ratio of 1.10. These low-contrast combinations made it harder to distinguish key information and interactive elements.",
             { vspace: true },
             {
                 imagePair: [
@@ -156,9 +156,210 @@ export const projectTracker: Project = {
             "Overall, the audit revealed three main areas for improvement: **creating a more consistent visual system, improving colour contrast for accessibility, and clarifying key user flows across the platform.**",
         ],
         opportunities: [
-            "I found three main opportunities for improvement: creating a more consistent visual system, improving colour contrast for accessibility, and clarifying key user flows across the platform.",
+            "I found 4 main opportunities for improvement: creating a more consistent visual system, improving colour contrast for accessibility, and clarifying key user flows across the platform.",
+            { vspace: true },
+            "**01. Create a Cohesive Visual System**",
+            {
+                ul: [
+                    "Standardize colours, spacing, and component styles",
+                    "Establish a consistent design language across all screens",
+                ],
+            },
+            "**02. Improve Accessibility**",
+            {
+                ul: [
+                    "Increase colour contrast",
+                    "Improve readability and visual distinction between elements",
+                ],
+            },
+            "**03. Strengthen Information Hierarchy**",
+            {
+                ul: [
+                    "Prioritize important information",
+                    "Improve content grouping and visual scanning",
+                ],
+            },
+            "**04. Simplify User Flows**",
+            {
+                ul: [
+                    "Clarify navigation paths",
+                    "Reduce friction between related workflows",
+                ],
+            },
+        ],
+        "design-strategy": [
+            "The redesign focused on transforming the existing product into **a cohesive and scalable design system** while improving accessibility and clarifying key workflows across the platform.",
+            { vspace: true },
+            "**01. Establish a Design System**",
+            {
+                ul: [
+                    "Define the use of primary and secondary colours",
+                    "Standardize UI components and interaction patterns",
+                    "Create a consistent spacing and layout system",
+                ],
+            },
+            "**02. Improve Accessibility Standards**",
+            {
+                ul: [
+                    "Apply WCAG-informed colour contrast guidelines (4.5:1 for text, 3:1 for non-text elements)",
+                    "Ensure readable text and interactive elements",
+                ],
+            },
+            "**03. Enhance Workflow Clarity**",
+            {
+                ul: [
+                    "Simplify navigation paths",
+                    "Streamline related workflows and reduce friction",
+                ],
+            },
+        ],
+        "key-improvements": [
+            {
+                imagePair: [
+                    {
+                        src: "/ProjectTracker/19_improvements01.png",
+                        alt: "ProjectTracker key improvement — before",
+                        caption: "Before",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                    {
+                        src: "/ProjectTracker/20_improvements02.png",
+                        alt: "ProjectTracker key improvement — after",
+                        caption: "After",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                ],
+            },
+            "**1. Visual Consistency**",
+            {
+                ul: [
+                    "Standardize button styles, card layouts, and visual treatments",
+                    "Create a consistent spacing and layout system",
+                ],
+            },
+            {
+                imagePair: [
+                    {
+                        src: "/ProjectTracker/21_improvements03.png",
+                        alt: "ProjectTracker key improvement — before",
+                        caption: "Before",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                    {
+                        src: "/ProjectTracker/22_improvements04.png",
+                        alt: "ProjectTracker key improvement — after",
+                        caption: "After",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                ],
+            },
+            "**2. Accessibility Improvements**",
+            {
+                ul: [
+                    "Increase colour contrast for readability",
+                    "Ensure readable text and interactive elements",
+                ],
+            },
+            {
+                imagePair: [
+                    {
+                        src: "/ProjectTracker/23_improvements05.png",
+                        alt: "ProjectTracker key improvement — before",
+                        caption: "Before",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                    {
+                        src: "/ProjectTracker/24_improvements06.png",
+                        alt: "ProjectTracker key improvement — after",
+                        caption: "After",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                ],
+            },
+            "**3. Workflow Clarification**",
+            {
+                ul: [
+                    "Simplify navigation paths and changed the wording of the screen for clarification",
+                    "Streamline related workflows and reduce friction",
+                ],
+            },
+            {
+                imagePair: [
+                    {
+                        src: "/ProjectTracker/25_improvements07.png",
+                        alt: "ProjectTracker key improvement — before",
+                        caption: "Before",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                    {
+                        src: "/ProjectTracker/26_improvements08.png",
+                        alt: "ProjectTracker key improvement — after",
+                        caption: "After",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                ],
+            },
+            "**4. Improved Information Hierarchy**",
+            {
+                ul: [
+                    "Prioritize important information",
+                    "Improve content grouping and visual scanning",
+                ],
+            },
+            {
+                imagePair: [
+                    {
+                        src: "/ProjectTracker/27_improvements09.png",
+                        alt: "ProjectTracker key improvement — before",
+                        caption: "Before",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                    {
+                        src: "/ProjectTracker/28_improvements10.png",
+                        alt: "ProjectTracker key improvement — after",
+                        caption: "After",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                ],
+            },
+            "**5. Simplified User Flows**",
+            {
+                ul: [
+                    "Clarify navigation paths",
+                    "Reduce friction between related workflows",
+                ],
+            },
         ],
     },
-
     tags: ["Product Optimization", "UX/UI Redesign"],
 };
