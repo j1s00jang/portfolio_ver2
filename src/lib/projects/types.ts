@@ -113,19 +113,6 @@ export type CaseStudyBlock =
       ];
     }
   | {
-      /** Inline MP4 (and similar) demos; paths from site root (`public/`). */
-      video: {
-        src: string;
-        /** Accessible name (defaults to neutral label). */
-        title?: string;
-        poster?: string;
-        /** Width as % of the figure wrapper (others default to 90). */
-        widthPct?: number;
-        /** Full CSS `max-height` value when this clip shouldn’t match the default cap. */
-        maxHeightCss?: string;
-      };
-    }
-  | {
       /** Figma file / board / prototype share URL (rendered as embed iframe). */
       figma: {
         url: string;
@@ -148,6 +135,34 @@ export type CaseStudyBlock =
         deviceFrame?: boolean;
         footer?: boolean;
         hotspotHints?: boolean;
+      };
+    }
+  | {
+      /** Inline MP4 (and similar) demos; paths from site root (`public/`). */
+      video: {
+        src: string;
+        /** Accessible name (defaults to neutral label). */
+        title?: string;
+        poster?: string;
+        /** Width as % of the figure wrapper (others default to 90). */
+        widthPct?: number;
+        /** Full CSS `max-height` value when this clip shouldn’t match the default cap. */
+        maxHeightCss?: string;
+      };
+    }
+  | {
+      /** Live deployed prototype URL (e.g. Vercel app), rendered as iframe embed. */
+      liveEmbed: {
+        url: string;
+        title?: string;
+        /** Default `fit-width` — scales a fixed design viewport to the embed width. */
+        scaling?: "fit-width" | "fixed";
+        /** Reference viewport for `fit-width` (defaults 1440×900). */
+        designWidth?: number;
+        designHeight?: number;
+        /** Fixed iframe height when `scaling` is `fixed`. Ignored when `aspectRatio` is set. */
+        heightCss?: string;
+        aspectRatio?: string;
       };
     }
   | {

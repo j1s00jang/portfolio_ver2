@@ -44,9 +44,8 @@ const projectTrackerSections: Section[] = [
     { num: "5", label: "Design Strategy", id: "design-strategy" },
     { num: "6", label: "Key Improvements", id: "key-improvements" },
     { num: "7", label: "Final Outcome", id: "final-outcome" },
-    { num: "8", label: "Prototype", id: "prototype" },
     {
-        num: "9",
+        num: "8",
         label: "Key Learnings & Reflection",
         id: "key-learnings-reflection",
     },

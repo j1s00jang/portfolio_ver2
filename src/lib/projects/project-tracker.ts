@@ -360,6 +360,17 @@ export const projectTracker: Project = {
                 ],
             },
         ],
+        "final-outcome": [
+            "The redesigned ProjectTracker is a more cohesive and scalable design system that improves accessibility and clarifies key workflows across the platform.",
+            { vspace: true },
+            {
+                liveEmbed: {
+                    url: "https://project-tracker-seven-kohl.vercel.app",
+                    title: "ProjectTracker prototype",
+                    scaling: "fit-width",
+                },
+            },
+        ],
     },
     tags: ["Product Optimization", "UX/UI Redesign"],
 };

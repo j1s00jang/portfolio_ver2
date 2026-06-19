@@ -7,6 +7,7 @@ import { CaseStudyFlipbook } from "../components/CaseStudyFlipbook";
 import { CaseStudyFlavorCarousel } from "../components/CaseStudyFlavorCarousel";
 import { CaseStudyScreenGallery } from "../components/CaseStudyScreenGallery";
 import { CaseStudyFigmaEmbed } from "../components/CaseStudyFigmaEmbed";
+import { CaseStudyLiveEmbed } from "../components/CaseStudyLiveEmbed";
 import { Nav } from "../components/Nav";
 import {
     getProjectNavItems,
@@ -539,6 +540,37 @@ function renderCaseStudyBlocks(blocks: CaseStudyBlock[]): ReactNode[] {
                     deviceFrame={block.figma.deviceFrame}
                     footer={block.figma.footer}
                     hotspotHints={block.figma.hotspotHints}
+                />,
+            );
+        } else if (
+            "liveEmbed" in block &&
+            block.liveEmbed &&
+            typeof block.liveEmbed.url === "string"
+        ) {
+            flushStrings();
+            const liveTitle =
+                typeof block.liveEmbed.title === "string" &&
+                block.liveEmbed.title.length > 0
+                    ? block.liveEmbed.title
+                    : "Live prototype";
+            const heightCss =
+                typeof block.liveEmbed.heightCss === "string" &&
+                block.liveEmbed.heightCss.trim().length > 0
+                    ? block.liveEmbed.heightCss.trim()
+                    : "min(75vh, 820px)";
+            const scaling =
+                block.liveEmbed.scaling === "fixed" ? "fixed" : "fit-width";
+
+            out.push(
+                <CaseStudyLiveEmbed
+                    key={`cs-${key++}`}
+                    url={block.liveEmbed.url}
+                    title={liveTitle}
+                    scaling={scaling}
+                    designWidth={block.liveEmbed.designWidth}
+                    designHeight={block.liveEmbed.designHeight}
+                    heightCss={heightCss}
+                    aspectRatio={block.liveEmbed.aspectRatio}
                 />,
             );
         } else if (
