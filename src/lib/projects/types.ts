@@ -34,7 +34,7 @@ export type CaseStudyInlineImage = {
   /** When set with `frame: "intrinsic"`, scales natural width (e.g. `0.8` = 80%). */
   displayScale?: number;
   /** Grid / slot frame proportion (default `wide`). */
-    slotAspect?: "wide" | "banner" | "portrait" | "tall" | "compact" | "rowFill";
+    slotAspect?: "wide" | "banner" | "portrait" | "tall" | "compact" | "square" | "rowFill";
 };
 
 /** One screen in a sidebar gallery (`screenGallery` block). */
@@ -165,6 +165,11 @@ export type CaseStudyBlock =
       /** Sidebar nav + preview for a set of UI screens (e.g. existing product audit). */
       screenGallery: {
         screens: readonly ScreenGalleryItem[];
+        /** Optional heading in the left column (above tab nav). */
+        sidebarTitle?: string;
+        /** Optional bullet list in the left column — edit in project data. */
+        sidebar?: string[];
+        regionLabel?: string;
       };
     };
 

@@ -10,9 +10,17 @@ import { cn } from "@/lib/utils";
 
 type Props = {
     screens: readonly ScreenGalleryItem[];
+    sidebarTitle?: string;
+    sidebar?: readonly string[];
+    regionLabel?: string;
 };
 
-export function CaseStudyScreenGallery({ screens }: Props) {
+export function CaseStudyScreenGallery({
+    screens,
+    sidebarTitle,
+    sidebar,
+    regionLabel = "Product screens",
+}: Props) {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [modalOpen, setModalOpen] = useState(false);
     /** width / height — crops previews to the shortest screen. */
@@ -60,13 +68,28 @@ export function CaseStudyScreenGallery({ screens }: Props) {
         <div
             className="my-10 w-full max-w-5xl shrink-0 md:my-14"
             role="region"
-            aria-label="Existing product screens"
+            aria-label={regionLabel}
         >
             <div className="grid grid-cols-1 gap-4 md:grid-cols-10 md:gap-5">
-                <nav
-                    aria-label="Screen list"
-                    className="md:col-span-2"
-                >
+                <aside className="flex flex-col gap-4 md:col-span-2 md:gap-6">
+                    {sidebarTitle || (sidebar && sidebar.length > 0) ? (
+                        <div className="space-y-3 text-base leading-relaxed text-foreground/85">
+                            {sidebarTitle ? (
+                                <p className="font-semibold text-foreground">
+                                    {sidebarTitle}
+                                </p>
+                            ) : null}
+                            {sidebar && sidebar.length > 0 ? (
+                                <ul className="list-disc space-y-1.5 pl-4 marker:text-foreground/40">
+                                    {sidebar.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+                            ) : null}
+                        </div>
+                    ) : null}
+
+                    <nav aria-label="Screen list">
                     <ul className="flex flex-row gap-2 overflow-x-auto pb-1 md:flex-col md:gap-0 md:overflow-visible md:pb-0">
                         {screens.map((screen, index) => {
                             const isActive = index === selectedIndex;
@@ -81,7 +104,7 @@ export function CaseStudyScreenGallery({ screens }: Props) {
                                             setSelectedIndex(index)
                                         }
                                         className={cn(
-                                            "group flex w-full items-start gap-2.5 rounded-md px-3 py-2.5 text-left transition-colors duration-300 md:gap-3 md:px-0 md:py-2",
+                                            "group flex w-full cursor-pointer items-start gap-2.5 rounded-md px-3 py-2.5 text-left transition-colors duration-300 md:gap-3 md:px-0 md:py-2",
                                             isActive
                                                 ? "bg-muted/80 text-foreground md:bg-transparent"
                                                 : "text-foreground/40 hover:text-foreground/65",
@@ -124,7 +147,8 @@ export function CaseStudyScreenGallery({ screens }: Props) {
                             );
                         })}
                     </ul>
-                </nav>
+                    </nav>
+                </aside>
 
                 <div className="md:col-span-8">
                     <DialogPrimitive.Root modal open={modalOpen} onOpenChange={setModalOpen}>

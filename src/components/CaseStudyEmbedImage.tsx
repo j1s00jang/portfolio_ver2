@@ -22,6 +22,7 @@ const slotAspectClass = {
     tall: "aspect-[2/3] md:aspect-[3/5]",
     /** ~80% of `tall` cell height (same width). */
     compact: "aspect-[5/6] md:aspect-[3/4]",
+    square: "aspect-square",
     /** No fixed aspect — fills stretched grid row (pair with `items-stretch`). */
     rowFill: "",
 } as const;
@@ -46,7 +47,7 @@ export function CaseStudyEmbedImage({
     frame?: "slot" | "hug" | "intrinsic";
     /** Scales intrinsic width after load (e.g. `0.8` = 80% of file size). */
     displayScale?: number;
-    slotAspect?: "wide" | "banner" | "portrait" | "tall" | "compact" | "rowFill";
+    slotAspect?: "wide" | "banner" | "portrait" | "tall" | "compact" | "square" | "rowFill";
     lightbox?: boolean;
     /** `gridCell`: no outer section margin — use inside `imagePair` row. */
     embedVariant?: "section" | "gridCell";

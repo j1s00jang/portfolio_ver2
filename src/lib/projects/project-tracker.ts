@@ -33,7 +33,7 @@ export const projectTracker: Project = {
     caseStudySections: {
         "existing-product": [
             "The initial version of ProjectTracker was created by an AI design program as a project management platform for organizing projects, deliverables, and activities. The product was very functional and covered the core workflows, but further refinement was needed to better align with consistency and colour contrast standards. Also, the company's style guide and usability standards were not followed consistently.",
-            "The screens have been recreated while **all colours, button styles and layout are kept exactly the same** with placeholder content to protect confidential company information.",
+            "The existing screens were recreated with placeholder content to protect confidential company information. **Original colours, button styles, and layouts were preserved to accurately represent the initial product state.**",
             { vspace: true },
             {
                 screenGallery: {
@@ -85,7 +85,78 @@ export const projectTracker: Project = {
             },
         ],
         audit: [
-            "After reviewing the existing product,I identified several UX/UI issues and accessibility concerns that needed to be addressed. I conducted a thorough audit of the product to understand the current state and identify areas for improvement.",
+            "After reviewing the existing product, I identified several UX/UI issues and accessibility concerns that needed to be addressed. I conducted a thorough audit of the product to understand the current state and identify areas for improvement.",
+            { vspace: true },
+            {
+                imagePair: [
+                    {
+                        src: "/ProjectTracker/13_audit01.png",
+                        alt: "ProjectTracker audit — visual consistency issue 1",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                    {
+                        src: "/ProjectTracker/14_audit02.png",
+                        alt: "ProjectTracker audit — visual consistency issue 2",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                ],
+            },
+            "**1. Visual Inconsistency:** The interface used inconsistent button styles, including variations in radius, size, and colour. Spacing, card styles, and visual treatments also differed across screens, making the product feel less cohesive as a system.",
+            { vspace: true },
+            {
+                imagePair: [
+                    {
+                        src: "/ProjectTracker/15_audit03.png",
+                        alt: "ProjectTracker audit — poor accessibility issue 1",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                    {
+                        src: "/ProjectTracker/16_audit04.png",
+                        alt: "ProjectTracker audit — poor accessibility issue 2",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                ],
+            },
+            "**2. Poor Accessibility:** Several colour combinations did not provide enough contrast for comfortable readability. For example, dark purple on black had a contrast ratio of 4.11, while light red on pink had a contrast ratio of 1.10. These low-contrast combinations made it harder to distinguish key information and interactive elements.",
+            { vspace: true },
+            {
+                imagePair: [
+                    {
+                        src: "/ProjectTracker/17_audit05.png",
+                        alt: "ProjectTracker audit — cluttered user experience issue 1",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                    {
+                        src: "/ProjectTracker/18_audit06.png",
+                        alt: "ProjectTracker audit — cluttered user experience issue 2",
+                        slotAspect: "wide",
+                        fit: "cover",
+                        objectPosition: "top",
+                        lightbox: true,
+                    },
+                ],
+            },
+            "**3. Cluttered User Experience:** Some navigation paths and user flows were not intuitive. For example, as a project manager, smooth flow from Deliverable Tracker to the project's Activity Tracker should be important. But the flow from the Projects page to the Activity Tracker was unclear and tedious, which could make it harder for users to understand where to find related project activities.",
+            { vspace: true },
+            "Overall, the audit revealed three main areas for improvement: **creating a more consistent visual system, improving colour contrast for accessibility, and clarifying key user flows across the platform.**",
+        ],
+        opportunities: [
+            "I found three main opportunities for improvement: creating a more consistent visual system, improving colour contrast for accessibility, and clarifying key user flows across the platform.",
         ],
     },
 
