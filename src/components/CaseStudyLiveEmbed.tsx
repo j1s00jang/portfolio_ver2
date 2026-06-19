@@ -95,7 +95,7 @@ export function CaseStudyLiveEmbed({
                     rel="noopener noreferrer"
                     className="text-muted-foreground transition-colors hover:text-accent"
                 >
-                    Open prototype in a new tab
+                    + Click here to open in a new tab 🔗
                 </a>
             </figcaption>
         </figure>

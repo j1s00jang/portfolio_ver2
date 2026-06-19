@@ -361,7 +361,7 @@ export const projectTracker: Project = {
             },
         ],
         "final-outcome": [
-            "The redesigned ProjectTracker is a more cohesive and scalable design system that improves accessibility and clarifies key workflows across the platform.",
+            "The redesign resulted in a more cohesive and accessible interface supported by a consistent design system and clearer workflows. **Although the prototype is not fully functional, it demonstrates the core interactions and redesigned experience across the platform.**",
             { vspace: true },
             {
                 liveEmbed: {
@@ -370,6 +370,23 @@ export const projectTracker: Project = {
                     scaling: "fit-width",
                 },
             },
+        ],
+        "key-learnings-reflection": [
+            "**AI-generated interfaces could not always be intuitive, consistent, or accessible.** This project became a perfect opportunity to explore where human judgment and design thinking are still essential in shaping meaningful user experiences.",
+            "By evaluating an existing AI-generated product, identifying its weaknesses, and systematically improving it, I learned that refining an existing experience can be just as impactful as creating a new one from scratch. I also gained a deeper appreciation for design systems and how consistency in colours, components, and spacing directly influences scalability and the overall user experience.",
+            { vspace: true },
+            "**Key Learnings:**",
+            "**1. Improving existing products can be as valuable as creating new ones.**",
+            "Effective design often comes from evaluating what already exists, identifying opportunities for improvement, and making thoughtful, systematic changes.",
+            { vspace: true },
+            "**2. Consistency is essential for scalable products.**",
+            "Working across multiple screens reinforced the importance of design systems and how consistent colours, components, and spacing contribute to a more cohesive experience.",
+            { vspace: true },
+            "**3. Accessibility should be considered from the beginning.**",
+            "Applying colour contrast standards and improving visual hierarchy showed me that small design decisions can have a meaningful impact on usability and readability.",
+            { vspace: true },
+            "As my first real-world product design project outside of school, **ProjectTracker helped me understand how design decisions affect not only the visual quality of an interface, but also workflow clarity, scalability, and team productivity.**",
+            "Working on an internal enterprise platform taught me to think beyond individual screens and consider how each component, flow, and interaction supports a larger system. **This experience strengthened my interest in designing scalable digital products and will continue to shape how I approach product design in my future career.**",
         ],
     },
     tags: ["Product Optimization", "UX/UI Redesign"],
