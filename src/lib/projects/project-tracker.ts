@@ -352,16 +352,16 @@ export const projectTracker: Project = {
                     },
                 ],
             },
-            "**5. Simplified User Flows**",
+            "**5. Clearer Navigation Paths**",
             {
                 ul: [
-                    "Clarify navigation paths",
-                    "Reduce friction between related workflows",
+                    "Use consistent colour and icon to indicate the navigation path",
+                    "Reduce friction in the navigation process",
                 ],
             },
         ],
-        "final-outcome": [
-            "The redesign resulted in a more cohesive and accessible interface supported by a consistent design system and clearer workflows. **Although the prototype is not fully functional, it demonstrates the core interactions and redesigned experience across the platform.**",
+        prototype: [
+            "Although the prototype is not fully functional, **it demonstrates the core interactions and redesigned experience across the platform with placeholder content.**",
             { vspace: true },
             {
                 liveEmbed: {
