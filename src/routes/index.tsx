@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
                 name: "description",
                 content: "Jisoo Jang's portfolio.",
             },
-            { property: "og:title", content: "Jisoo Jang — Product Designer" },
+            { property: "og:title", content: "Jisoo Jang" },
             {
                 property: "og:description",
                 content: "Product Design, UX/UI Design, Graphic Design.",

@@ -74,10 +74,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Jisoo Jang - Product Designer" },
+      { title: "Jisoo Jang" },
       { name: "description", content: "Jisoo Jang's portfolio." },
       { name: "author", content: "Jisoo Jang" },
-      { property: "og:title", content: "Jisoo Jang - Product Designer" },
+      { property: "og:title", content: "Jisoo Jang" },
       { property: "og:description", content: "Jisoo Jang's portfolio." },
       { property: "og:type", content: "website" },
     ],

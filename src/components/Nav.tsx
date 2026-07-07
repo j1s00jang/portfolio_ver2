@@ -39,10 +39,6 @@ export function Nav() {
                         className="font-mono text-xs font-medium uppercase tracking-[0.2em] hover:text-accent transition-colors"
                     >
                         JISOO JANG
-                        <span className="ml-2 text-muted-foreground font-normal hidden sm:inline">
-                            <span className="text-accent">—</span> PRODUCT
-                            DESIGNER
-                        </span>
                     </Link>
                 </div>
 
