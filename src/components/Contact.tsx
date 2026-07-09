@@ -4,7 +4,7 @@ import { FileText, Linkedin, Mail, Instagram } from "lucide-react";
 const email = "jisoo.design@icloud.com";
 
 /** Bump when replacing `public/Jisoo_Jang_Resume.pdf` — busts browser/CDN cache for the same filename. */
-const resumeVersion = "20260607";
+const resumeVersion = "20260709";
 
 const links = [
     { label: "Email", href: `mailto:${email}`, icon: Mail, external: false },

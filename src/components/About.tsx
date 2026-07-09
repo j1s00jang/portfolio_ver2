@@ -97,7 +97,7 @@ export function About() {
                         className="md:col-span-7"
                     >
                         <p className="font-display text-3xl md:text-5xl font-medium leading-[1.1] tracking-tight">
-                            I design products with{" "}
+                            Hi, I'm Jisoo! I love todesign products with{" "}
                             <span className="italic text-accent">reason</span>.
                             I believe good design is effortless — it works
                             naturally, gets out of the way, and lets people get
