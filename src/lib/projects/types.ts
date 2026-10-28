@@ -203,6 +203,8 @@ export type Project = {
   year: string;
   role: string;
   summary: string;
+  /** Short hover tip on the Work list (cursor speech bubble). */
+  hoverBlurb?: string;
   /**
    * Up to four images replacing “Visual 1–4”. Index 0 = top-left, then reading order.
    * Shorter arrays leave remaining slots as placeholders until you add more.

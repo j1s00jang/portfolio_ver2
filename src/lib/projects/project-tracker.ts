@@ -7,6 +7,8 @@ export const projectTracker: Project = {
     role: "Product Improvement, UX/UI Redesign",
     summary:
         "UX/UI Redesign, Accessibility Improvements, and User Flow Optimization for an AI-Generated SaaS Project Management Platform.",
+    hoverBlurb:
+        "Manage and track multiple projects in one platform. 👩🏻‍💻 On/offboarding, deadlines and resources. 💻 Make project managers work easier and faster.",
     introVisuals: [
         {
             src: "/ProjectTracker/01_visual01.webp",

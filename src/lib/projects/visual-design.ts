@@ -7,6 +7,8 @@ export const visualDesign: Project = {
     role: "Branding, Interaction, Editorial Design",
     summary:
         "Selected visual work spanning branding, layout, typography, and information hierarchy — created not only for visual impact, but for clarity.",
+    hoverBlurb:
+        "My graphic visual design works! 💙 Brand design, layout design and a fun tutorial for cat owners. 🐾",
     introVisuals: [
         {
             src: "/VisualDesign/01_fizzypop_visual01.png",

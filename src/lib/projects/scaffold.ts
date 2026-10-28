@@ -7,6 +7,8 @@ export const scaffold: Project = {
     role: "Product Design, UX/UI Design, User Research",
     summary:
         "AI-assisted, all-in-one financial resource platform that consolidates grant information for tradespeople.",
+    hoverBlurb:
+        "Find all your financial resources in one platform. Keep moving on your career, without giving up because of the financial barrier. 💰",
     introVisuals: [
         {
             src: "/Scaffold/01_visual01.png",

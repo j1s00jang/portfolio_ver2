@@ -1,9 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { useState } from "react";
 import { projects } from "@/lib/projects";
+import { CursorSpeechBubble } from "./CursorSpeechBubble";
 
 export function WorkList() {
+    const [tip, setTip] = useState<{
+        x: number;
+        y: number;
+        text: string;
+    } | null>(null);
+
     return (
         <section
             id="work"
@@ -19,7 +27,10 @@ export function WorkList() {
                     </span>
                 </div>
 
-                <ul className="border-t border-border/70">
+                <ul
+                    className="border-t border-border/70"
+                    onMouseLeave={() => setTip(null)}
+                >
                     {projects.map((p, i) => (
                         <motion.li
                             key={p.slug}
@@ -32,6 +43,20 @@ export function WorkList() {
                                 ease: [0.22, 1, 0.36, 1],
                             }}
                             className="border-b border-border/70"
+                            onMouseEnter={(e) =>
+                                setTip({
+                                    x: e.clientX,
+                                    y: e.clientY,
+                                    text: p.hoverBlurb ?? p.summary,
+                                })
+                            }
+                            onMouseMove={(e) =>
+                                setTip({
+                                    x: e.clientX,
+                                    y: e.clientY,
+                                    text: p.hoverBlurb ?? p.summary,
+                                })
+                            }
                         >
                             <Link
                                 to="/work/$slug"
@@ -75,6 +100,12 @@ export function WorkList() {
                     ))}
                 </ul>
             </div>
+
+            {tip ? (
+                <CursorSpeechBubble x={tip.x} y={tip.y}>
+                    {tip.text}
+                </CursorSpeechBubble>
+            ) : null}
         </section>
     );
 }

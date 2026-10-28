@@ -1,17 +1,14 @@
 import { motion, useAnimation } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 import { openFullscreenWindow } from "@/lib/open-fullscreen";
+import { CursorSpeechBubble } from "./CursorSpeechBubble";
 import { LiveTimeTicker } from "./LiveTimeTicker";
 import { VancouverWeather } from "./VancouverWeather";
 
 const CAFE_TOAST_URL = "https://cafe-toast.vercel.app";
 const CAFE_TOAST_BLURB =
     "Focus on your work at a virtual cafe with pomodoro timer and some ambient sounds.";
-/** Approx bubble width (max-w-[15rem]) + cursor offset; used to flip when near the right edge. */
-const TIP_WIDTH_PX = 240;
-const TIP_GAP_PX = 16;
 
 const headlineLines = ["Design", "with"] as const;
 const reasonLine = "reason.";
@@ -43,9 +40,6 @@ function ReasonLetters() {
 function CafeToastPlaygroundLink() {
     const [tip, setTip] = useState<{ x: number; y: number } | null>(null);
 
-    const placeLeft =
-        tip !== null && tip.x + TIP_GAP_PX + TIP_WIDTH_PX > window.innerWidth - 12;
-
     return (
         <>
             <a
@@ -63,36 +57,11 @@ function CafeToastPlaygroundLink() {
             >
                 playground #1 <span className="text-accent">Cafe Toast</span>
             </a>
-            {tip
-                ? createPortal(
-                      <div
-                          role="tooltip"
-                          className="pointer-events-none fixed z-[100] w-[min(15rem,calc(100vw-1.5rem))]"
-                          style={{
-                              left: placeLeft
-                                  ? tip.x - TIP_GAP_PX
-                                  : tip.x + TIP_GAP_PX,
-                              top: tip.y + 18,
-                              transform: placeLeft
-                                  ? "translateX(-100%)"
-                                  : undefined,
-                          }}
-                      >
-                          <div className="relative rounded-lg bg-[var(--background-dark)] px-3.5 py-2.5 text-[var(--background-light)] shadow-sm dark:bg-[var(--background-light)] dark:text-[var(--background-dark)]">
-                              <span
-                                  aria-hidden
-                                  className={`absolute -top-[6px] h-0 w-0 border-x-[6px] border-b-[6px] border-x-transparent border-b-[var(--background-dark)] dark:border-b-[var(--background-light)] ${
-                                      placeLeft ? "right-3" : "left-3"
-                                  }`}
-                              />
-                              <p className="relative font-mono text-[10px] uppercase leading-snug tracking-[0.16em]">
-                                  {CAFE_TOAST_BLURB}
-                              </p>
-                          </div>
-                      </div>,
-                      document.body,
-                  )
-                : null}
+            {tip ? (
+                <CursorSpeechBubble x={tip.x} y={tip.y}>
+                    {CAFE_TOAST_BLURB}
+                </CursorSpeechBubble>
+            ) : null}
         </>
     );
 }

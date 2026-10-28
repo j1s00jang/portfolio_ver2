@@ -7,6 +7,8 @@ export const montro: Project = {
     role: "Product Design, UX/UI Design, User Research",
     summary:
         "Gamified expense-tracking app that builds spending & saving goals and reward milestones.",
+    hoverBlurb:
+        "Build your expense tracking with rewards, and make it a long-term habit. 💵 Future you will thank you.",
     introVisuals: [
         {
             src: "/Montro/01_visual01.png",
