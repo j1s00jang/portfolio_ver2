@@ -6,9 +6,15 @@ export const projectTracker: Project = {
     year: "Apr 2026 — May 2026",
     role: "Product Improvement, UX/UI Redesign",
     summary:
-        "UX/UI Redesign, Accessibility Improvements, and User Flow Optimization for an AI-Generated SaaS Project Management Platform.",
+        "Redesigned an AI-generated SaaS project management platform to improve readability, visual consistency, and navigation between deliverables and their associated activities.",
     hoverBlurb:
         "Manage and track multiple projects in one platform. 👩🏻‍💻 On/offboarding, deadlines and resources. 💻 Make project managers work easier and faster.",
+    keyFacts: [
+        { label: "Role", value: "UX/UI Redesign" },
+        { label: "Project Period", value: "Apr – May 2026, During Internship" },
+        { label: "Collaboration", value: "Project Managers & Developer" },
+        { label: "Focus", value: "Readability · UI Consistency · User Flow" },
+    ],
     introVisuals: [
         {
             src: "/ProjectTracker/01_visual01.webp",

@@ -8,7 +8,7 @@ import { VancouverWeather } from "./VancouverWeather";
 
 const CAFE_TOAST_URL = "https://cafe-toast.vercel.app";
 const CAFE_TOAST_BLURB =
-    "Focus on your work at a virtual cafe with pomodoro timer and some ambient sounds.";
+    "Focus on your work at a virtual cafe with a timer and some ambient sounds. ☕️📖";
 
 const headlineLines = ["Design", "with"] as const;
 const reasonLine = "reason.";
@@ -58,7 +58,10 @@ function CafeToastPlaygroundLink() {
                 playground #1 <span className="text-accent">Cafe Toast</span>
             </a>
             {tip ? (
-                <CursorSpeechBubble x={tip.x} y={tip.y}>
+                <CursorSpeechBubble
+                    x={tip.x}
+                    y={tip.y}
+                >
                     {CAFE_TOAST_BLURB}
                 </CursorSpeechBubble>
             ) : null}

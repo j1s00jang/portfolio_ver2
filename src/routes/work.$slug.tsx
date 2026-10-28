@@ -42,10 +42,7 @@ function isNumberedBulletLine(para: string): boolean {
 
 /** Section subheading immediately followed by a bullet list or body paragraph (e.g. "**01. …**"). */
 function isNumberedSectionHeading(para: string): boolean {
-    return (
-        /^\*\*\d+\.\s/.test(para) ||
-        /^\*\*Key Learnings \d+:/.test(para)
-    );
+    return /^\*\*\d+\.\s/.test(para) || /^\*\*Key Learnings \d+:/.test(para);
 }
 
 function isHeadingWithBodyPair(
@@ -808,7 +805,9 @@ export const Route = createFileRoute("/work/$slug")({
     ),
     errorComponent: ({ error }) => (
         <div className="flex min-h-screen items-center justify-center px-6">
-            <p className="text-sm text-muted-foreground">{error.message}</p>
+            <p className="text-sm text-muted-foreground">
+                {error instanceof Error ? error.message : "Something went wrong"}
+            </p>
         </div>
     ),
     component: ProjectPage,
@@ -856,6 +855,33 @@ function ProjectPage() {
                     >
                         {project.summary}
                     </motion.p>
+
+                    {project.keyFacts && project.keyFacts.length > 0 ? (
+                        <motion.dl
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{
+                                duration: 0.6,
+                                delay: 0.4,
+                                ease: [0.22, 1, 0.36, 1],
+                            }}
+                            className="mt-12 grid max-w-3xl grid-cols-1 gap-x-16 gap-y-10 sm:grid-cols-2 md:mt-16 md:gap-y-10"
+                        >
+                            {project.keyFacts.map((fact) => (
+                                <div
+                                    key={fact.label}
+                                    className="min-w-0"
+                                >
+                                    <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground md:text-xs md:tracking-[0.2em]">
+                                        {fact.label}
+                                    </dt>
+                                    <dd className="mt-2 font-display text-lg font-semibold tracking-tight text-foreground md:text-xl">
+                                        {fact.value}
+                                    </dd>
+                                </div>
+                            ))}
+                        </motion.dl>
+                    ) : null}
                 </div>
             </article>
 
