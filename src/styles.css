@@ -44,6 +44,9 @@
 
     /* #FDF9F4 */
     --background: oklch(0.978 0.008 80);
+    --background-light: oklch(0.978 0.008 80);
+    /* dark-mode page bg — used for inverted UI (e.g. hero tip) */
+    --background-dark: oklch(0.18 0.005 80);
     /* #232323 */
     --foreground: oklch(0.262 0 0);
 
