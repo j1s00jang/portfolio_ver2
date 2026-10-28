@@ -40,8 +40,7 @@ export function Contact() {
                         Contact
                     </h2>
                     <span className="text-xs text-muted-foreground">
-                        I'm always open to talking about design and new
-                        opportunities!
+                        Contact me anytime!
                     </span>
                 </div>
 
@@ -52,7 +51,7 @@ export function Contact() {
                     transition={{ duration: 0.7 }}
                 >
                     <p className="font-display text-2xl md:text-4xl font-medium tracking-tight text-foreground/60 mb-4">
-                        Feel free to reach out to me!
+                        Always happy to talk design! Or, just say hi. 😉💖
                     </p>
                     <a
                         href={`mailto:${email}`}
@@ -81,7 +80,7 @@ export function Contact() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: i * 0.06 }}
-                                className="group flex aspect-[5/4] flex-col justify-between rounded-md border border-border p-5 transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
+                                className="group flex aspect-[5/3] flex-col justify-between rounded-md border border-border p-4 transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
                             >
                                 <Icon
                                     className="h-5 w-5"
