@@ -6,9 +6,16 @@ export const visualDesign: Project = {
     year: "2025",
     role: "Branding, Interaction, Editorial Design",
     summary:
-        "Selected visual work spanning branding, layout, typography, and information hierarchy — created not only for visual impact, but for clarity.",
+        "A collection of three independent visual design projects exploring drink brand packaging design, educational tutorial with custom illustrations, and editorial travel brochure.",
     hoverBlurb:
         "My graphic visual design works! 💙 Brand design, layout design and a fun tutorial for cat owners. 🐾",
+    keyFacts: [
+        {
+            label: "Role",
+            value: "Visual Designer · Graphic Designer",
+        },
+        { label: "Focus", value: "Branding · Layout Design · Illustration" },
+    ],
     introVisuals: [
         {
             src: "/VisualDesign/01_fizzypop_visual01.png",
@@ -140,10 +147,10 @@ export const visualDesign: Project = {
         "first-cat-overview": [
             "**Interaction Design / Illustration / Educational Design / Scenario-based Learning**",
             { vspace: true },
-            "**Hello, My First Cat!** is a playful, scenario-based learning tutorial designed to help first-time cat owners better understand their new furry friend. Every scenario is inspired by real experiences and situations that often confuse new cat parents. With the fun interactive elements and decision-making moments, users learn and understand the cat’s body language through explanations of what the behaviour actually means.",
+            "**Hello, My First Cat!** is an illustrated educational tutorial inspired by my personal experience as a first-time cat owner. It's designed to help first-time cat owners (like me!) to learn and understand cat's behaviour through the illustrations inspired by my own cat **(His name is Toast)** and information sourced from veterinary websites.",
         ],
         "first-cat-process": [
-            "**Learning through playing a tutorial:** This project was designed for new cat owners to make learning about basic cat behaviour in a fun, playful and enjoyable tutorial. A game-like user experience was created to encourage curiosity and reduce the confusion often felt by first-time cat owners.",
+            "**Learning through playing a tutorial:** The tutorial is designed to be a fun and engaging experience. Through the interactive scenarios and decision-making moments, users learn and understand the cat's body language through explanations of what the behaviour actually means.",
             { vspace: true },
             {
                 imageQuad: [
@@ -172,7 +179,7 @@ export const visualDesign: Project = {
             { vspace: true },
             {
                 ul: [
-                    "**Visual Directions:** The visual language uses friendly and cute illustrations, soft colours, and interactive scenarios to create an emotionally engaging experience. By placing users in realistic situations and asking them to make choices, the tutorial encourages active participation and helps users better remember and understand feline body language.",
+                    "**Visual Directions:** With friendly and cute illustrations, soft colours, and interactive scenarios, the tutorial creates an emotionally engaging experience. **The illustrations in the background were inspired by real cat products I owned and the plants reflect research on cat-friendly, cat-safe species.**",
                 ],
             },
             {
@@ -205,7 +212,7 @@ export const visualDesign: Project = {
             },
             {
                 ul: [
-                    "The cat characters were created by observing cats’ behaviours in real life and the fur colour chosen by real cats as well. All background objects were illustrated from real cat products, while the plants reflect research on cat-friendly, cat-safe species. To keep the content clear and easy to read, a high readability typeface was used in the explanation.",
+                    "**Cat Character Design:** The cat illustrations were created by observing my cats’ behaviours in real life and fur colours were chosen by my cat as well.",
                 ],
             },
             { vspace: true },
@@ -261,8 +268,7 @@ export const visualDesign: Project = {
             "**Editorial Design / Information Hierarchy / Layout System / Visual Storytelling**",
             { vspace: true },
             "**Follow the light of Weihnachten** (*The German word for Christmas) is an editorial travel brochure project that curates a holiday travel experience through a magazine-inspired reading experience. The concept invites readers to explore the charm of European Christmas markets, following an itinerary from from Berlin, Germany, to Vienna, Austria.",
-            "Inspired by the expeience of browsing Christmas Markets in the evening, theidea of **following the light** was created. Star-guided paths were incoporated into the map design to visualize the journey and chrsitmas lights were used every itinerary day throughout the brochure. Travel information was organized using a consistent layout system, carefully considering information hierarchy, typography and readability.",
-            "Through visual storytelling, the brochure transforms conceptual travel package into a visually engaging experience, allowing readers to feel as through they are travelling the Christmas markets as they turn each page. ",
+            "Inspired by the expeience of browsing Christmas Markets in the evening, the idea of **following the light** was created. Star-guided paths were incoporated into the map design to visualize the journey and chrsitmas lights were used every itinerary day throughout the brochure.",
         ],
         "travel-brochure-process": [
             "The brochure was designed to capture the warmth and excitement of the holiday season while presenting travel information in a clear and visually engaging way. For the user's engaging and readability, the content was organized into digestible sections with a strong visual hierarchy.",

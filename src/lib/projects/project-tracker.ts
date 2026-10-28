@@ -11,8 +11,11 @@ export const projectTracker: Project = {
         "Manage and track multiple projects in one platform. 👩🏻‍💻 On/offboarding, deadlines and resources. 💻 Make project managers work easier and faster.",
     keyFacts: [
         { label: "Role", value: "UX/UI Redesign" },
-        { label: "Project Period", value: "Apr – May 2026, During Internship" },
-        { label: "Collaboration", value: "Project Managers & Developer" },
+        {
+            label: "Project Period",
+            value: "Apr 1 – May 20, 2026 - During Internship",
+        },
+        { label: "Collaboration", value: "2 Project Managers and 1 Developer" },
         { label: "Focus", value: "Readability · UI Consistency · User Flow" },
     ],
     introVisuals: [

@@ -6,9 +6,21 @@ export const montro: Project = {
     year: "Jan 2025 — May 2025",
     role: "Product Design, UX/UI Design, User Research",
     summary:
-        "Gamified expense-tracking app that builds spending & saving goals and reward milestones.",
+        "A gamified personal finance app designed to help young adults build consistent spending and saving habits through expense tracking, personalized savings goals, and rewards.",
     hoverBlurb:
         "Build your expense tracking with rewards, and make it a long-term habit. 💵 Future you will thank you.",
+    keyFacts: [
+        { label: "Role", value: "UX/UI Design, User Research" },
+        { label: "Project Period", value: "Jan 7 – May 16, 2025" },
+        {
+            label: "Collaboration",
+            value: "6 UX/UI Designers / UX Researchers and 4 Full-stack Developers",
+        },
+        {
+            label: "Focus",
+            value: "Gamification · Habit Formation · Goal Setting",
+        },
+    ],
     introVisuals: [
         {
             src: "/Montro/01_visual01.png",

@@ -6,9 +6,21 @@ export const scaffold: Project = {
     year: "Sept 2025 — Dec 2025",
     role: "Product Design, UX/UI Design, User Research",
     summary:
-        "AI-assisted, all-in-one financial resource platform that consolidates grant information for tradespeople.",
+        "An AI-assisted financial resource platform designed to help skilled tradespeople in British Columbia find eligible grants and scholarships and prepare applications more easily.",
     hoverBlurb:
         "Find all your financial resources in one platform. Keep moving on your career, without giving up because of the financial barrier. 💰",
+    keyFacts: [
+        { label: "Role", value: "UX/UI Design, UX Research" },
+        { label: "Project Period", value: "Sept 9 – Dec 5, 2025" },
+        {
+            label: "Collaboration",
+            value: "1 Product Manager, 4 UX/UI Designers / UX Researchers and 2 Developers",
+        },
+        {
+            label: "Focus",
+            value: "Personalization · Flexible Onboarding · AI-assisted Application Flow",
+        },
+    ],
     introVisuals: [
         {
             src: "/Scaffold/01_visual01.png",
