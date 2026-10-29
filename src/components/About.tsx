@@ -122,7 +122,7 @@ export function About() {
             <div className="mx-auto max-w-[1440px]">
                 <div className="mb-14 flex items-baseline justify-between">
                     <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                        About
+                        About Jisoo
                     </h2>
                     <span className="text-xs text-muted-foreground">
                         What I can do in a nutshell
@@ -145,7 +145,7 @@ export function About() {
                             >
                                 Jisoo
                             </PhotoHoverPhrase>
-                            ! A mom of{" "}
+                            . A proud parent of{" "}
                             <PhotoHoverPhrase
                                 src={TOAST_PHOTO_SRC}
                                 alt="I'm Toast. I'm the world's cutest cat."
@@ -171,9 +171,9 @@ export function About() {
                                 src={DESSERT_PHOTO_SRC}
                                 alt="Dessert"
                             >
-                                a dessert maker
+                                dessert maker
                             </PhotoHoverPhrase>
-                            . 🐾☕️🍮
+                            ! 🐾☕️🍮
                             <br />
                             <br />
                             As a designer, I love to design products with{" "}

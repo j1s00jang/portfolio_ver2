@@ -40,7 +40,8 @@ export function Contact() {
                         Contact
                     </h2>
                     <span className="text-xs text-muted-foreground">
-                        Contact me anytime!
+                        Want to talk about cats or more photos of Toast? Contact
+                        me anytime! 😉
                     </span>
                 </div>
 
@@ -51,7 +52,7 @@ export function Contact() {
                     transition={{ duration: 0.7 }}
                 >
                     <p className="font-display text-2xl md:text-4xl font-medium tracking-tight text-foreground/60 mb-4">
-                        Always happy to talk design! Or, just say hi. 😉💖
+                        Always happy to talk design! Or, just say hi. 🍁
                     </p>
                     <a
                         href={`mailto:${email}`}

@@ -102,7 +102,11 @@ export function WorkList() {
             </div>
 
             {tip ? (
-                <CursorSpeechBubble x={tip.x} y={tip.y}>
+                <CursorSpeechBubble
+                    x={tip.x}
+                    y={tip.y}
+                    variant="solid"
+                >
                     {tip.text}
                 </CursorSpeechBubble>
             ) : null}

@@ -145,3 +145,21 @@
     font-family: var(--font-display);
     letter-spacing: -0.03em;
 }
+
+/* Default: soft gray. Hover: accent red. No filter transition — browsers
+   interpolate drop-shadow poorly and flash gray→red mid-hover. */
+.hero-object-glow {
+    filter:
+        drop-shadow(0 10px 18px rgb(40 24 12 / 0.2))
+        drop-shadow(0 22px 40px rgb(40 24 12 / 0.12));
+}
+
+.hero-object-glow.is-hovered {
+    filter:
+        drop-shadow(
+            0 12px 22px color-mix(in oklab, var(--accent) 42%, transparent)
+        )
+        drop-shadow(
+            0 28px 52px color-mix(in oklab, var(--accent) 24%, transparent)
+        );
+}

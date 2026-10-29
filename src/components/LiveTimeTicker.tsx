@@ -3,6 +3,8 @@ import { SplitFlapDigit } from "./SplitFlapDigit";
 
 interface LiveTimeTickerProps {
   timeZone: string;
+  /** Overrides IANA short name (e.g. always show "PDT" with a fixed offset zone). */
+  tzLabel?: string;
 }
 
 interface TimeParts {
@@ -25,7 +27,7 @@ const ZERO: TimeParts = {
   tz: "",
 };
 
-function getTimeParts(timeZone: string): TimeParts {
+function getTimeParts(timeZone: string, tzLabel?: string): TimeParts {
   const formatter = new Intl.DateTimeFormat("en-US", {
     timeZone,
     hour12: false,
@@ -41,7 +43,10 @@ function getTimeParts(timeZone: string): TimeParts {
   if (hour === "24") hour = "00";
   const minute = get("minute");
   const second = get("second");
-  const tz = parts.find((p) => p.type === "timeZoneName")?.value ?? "";
+  const tz =
+    tzLabel?.trim() ||
+    parts.find((p) => p.type === "timeZoneName")?.value ||
+    "";
   return {
     h1: hour[0],
     h2: hour[1],
@@ -54,7 +59,7 @@ function getTimeParts(timeZone: string): TimeParts {
 }
 
 /** Split-flap clock + timezone only (use with city label + dividers in the parent row). */
-export function LiveTimeTicker({ timeZone }: LiveTimeTickerProps) {
+export function LiveTimeTicker({ timeZone, tzLabel }: LiveTimeTickerProps) {
   const [mounted, setMounted] = useState(false);
   const [parts, setParts] = useState<TimeParts>(ZERO);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -69,14 +74,14 @@ export function LiveTimeTicker({ timeZone }: LiveTimeTickerProps) {
 
   useEffect(() => {
     setMounted(true);
-    setParts(getTimeParts(timeZone));
+    setParts(getTimeParts(timeZone, tzLabel));
     const interval = reducedMotion ? 60_000 : 1_000;
     const id = window.setInterval(
-      () => setParts(getTimeParts(timeZone)),
+      () => setParts(getTimeParts(timeZone, tzLabel)),
       interval,
     );
     return () => window.clearInterval(id);
-  }, [timeZone, reducedMotion]);
+  }, [timeZone, tzLabel, reducedMotion]);
 
   const display = mounted ? parts : ZERO;
 
