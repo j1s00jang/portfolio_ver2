@@ -806,7 +806,9 @@ export const Route = createFileRoute("/work/$slug")({
     errorComponent: ({ error }) => (
         <div className="flex min-h-screen items-center justify-center px-6">
             <p className="text-sm text-muted-foreground">
-                {error instanceof Error ? error.message : "Something went wrong"}
+                {error instanceof Error
+                    ? error.message
+                    : "Something went wrong"}
             </p>
         </div>
     ),
