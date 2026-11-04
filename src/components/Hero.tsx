@@ -1,6 +1,11 @@
-import { motion, useAnimation } from "framer-motion";
+import {
+    motion,
+    useAnimation,
+    useScroll,
+    useTransform,
+} from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { openFullscreenWindow } from "@/lib/open-fullscreen";
 import { CursorSpeechBubble } from "./CursorSpeechBubble";
 import { LiveTimeTicker } from "./LiveTimeTicker";
@@ -15,7 +20,6 @@ type HeroObjectDef = {
     src: string;
     alt: string;
     blurb: ReactNode;
-    /** Position / size as % of the stage */
     style: {
         left: string;
         top: string;
@@ -38,7 +42,7 @@ const HERO_OBJECTS: HeroObjectDef[] = [
                 home!
             </>
         ),
-        style: { left: "44%", top: "1%", width: "28%", zIndex: 3 },
+        style: { left: "44%", top: "8%", width: "20%", zIndex: 3 },
     },
     {
         id: "coffee",
@@ -50,7 +54,7 @@ const HERO_OBJECTS: HeroObjectDef[] = [
                 drinks sweet coffee anyway?
             </>
         ),
-        style: { left: "11%", top: "12%", width: "32%", zIndex: 4 },
+        style: { left: "16%", top: "13%", width: "27%", zIndex: 4 },
     },
     {
         id: "book",
@@ -66,9 +70,9 @@ const HERO_OBJECTS: HeroObjectDef[] = [
             </>
         ),
         style: {
-            left: "40%",
-            top: "39%",
-            width: "26%",
+            left: "38%",
+            top: "42%",
+            width: "22%",
             rotate: 8,
             zIndex: 2,
         },
@@ -82,7 +86,7 @@ const HERO_OBJECTS: HeroObjectDef[] = [
                 Who's living with <span className="text-accent">Toast</span>?
             </>
         ),
-        style: { left: "14%", top: "55%", width: "22%", zIndex: 5 },
+        style: { left: "18%", top: "50%", width: "18%", zIndex: 5 },
     },
     {
         id: "leaf",
@@ -96,9 +100,9 @@ const HERO_OBJECTS: HeroObjectDef[] = [
             </>
         ),
         style: {
-            left: "70%",
-            top: "42%",
-            width: "30%",
+            left: "62%",
+            top: "36%",
+            width: "24%",
             rotate: -5,
             zIndex: 4,
         },
@@ -114,7 +118,7 @@ function CafeToastPlaygroundLink() {
                 href={CAFE_TOAST_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative shrink-0 text-foreground/85 transition-colors hover:text-foreground after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100"
+                className="relative shrink-0 font-mono text-xs uppercase tracking-[0.2em] text-foreground/85 transition-colors hover:text-foreground after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100"
                 onClick={(e) => {
                     e.preventDefault();
                     openFullscreenWindow(CAFE_TOAST_URL);
@@ -254,8 +258,19 @@ function HeroObject({
 }
 
 export function Hero() {
+    const sectionRef = useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start start", "35% start"],
+    });
+    const headlineOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+    const headlineY = useTransform(scrollYProgress, [0, 1], [0, -10]);
+
     return (
-        <section className="relative min-h-[100svh] overflow-hidden">
+        <section
+            ref={sectionRef}
+            className="relative min-h-[100svh] overflow-hidden"
+        >
             <div
                 className="absolute inset-0 bg-[#f3eee6] bg-cover bg-center"
                 style={{ backgroundImage: "url(/hero/bg.png)" }}
@@ -267,46 +282,95 @@ export function Hero() {
                 aria-hidden
             />
 
-            <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1440px] flex-col px-6 pb-24 pt-28 md:px-10 md:pb-28 md:pt-32">
-                <motion.p
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    className="relative z-20 mb-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 overflow-visible font-mono text-xs uppercase tracking-[0.2em] text-foreground/80 md:mb-6"
-                >
-                    <span className="flex min-w-0 flex-wrap items-center gap-3">
-                        <span className="shrink-0 text-accent">VANCOUVER</span>
-                        <span
-                            className="inline-block h-px w-8 shrink-0 self-center bg-foreground/40"
-                            aria-hidden
+            {/* Objects pinned to section; `top` anchors the stage so copy height can't push them. */}
+            <div className="pointer-events-none absolute inset-x-0 top-[26%] z-10 flex justify-center px-6 md:top-[28%] md:px-10">
+                <div className="pointer-events-auto relative aspect-[16/10] w-full max-w-5xl">
+                    {HERO_OBJECTS.map((object, index) => (
+                        <HeroObject
+                            key={object.id}
+                            object={object}
+                            index={index}
                         />
-                        <span className="inline-flex min-h-[1.35em] items-center overflow-visible py-0.5">
-                            <VancouverWeather />
-                        </span>
-                        <span
-                            className="inline-block h-px w-8 shrink-0 self-center bg-foreground/40"
-                            aria-hidden
-                        />
-                        <span className="inline-flex min-h-[1.35em] items-center overflow-visible py-0.5">
-                            <LiveTimeTicker
-                                timeZone="Etc/GMT+7"
-                                tzLabel="PDT"
-                            />
-                        </span>
-                    </span>
+                    ))}
+                </div>
+            </div>
 
-                    <CafeToastPlaygroundLink />
-                </motion.p>
-
-                <div className="relative mx-auto w-full max-w-5xl flex-1">
-                    <div className="relative aspect-[16/10] w-full min-h-[24rem] sm:min-h-[30rem] md:min-h-0">
-                        {HERO_OBJECTS.map((object, index) => (
-                            <HeroObject
-                                key={object.id}
-                                object={object}
-                                index={index}
+            <div className="pointer-events-none relative z-20 mx-auto flex min-h-[100svh] w-full max-w-[1440px] flex-col px-6 pb-24 pt-28 md:px-10 md:pb-28 md:pt-32">
+                <div className="pointer-events-auto mb-4 flex flex-wrap items-start justify-between gap-x-6 gap-y-4 md:mb-6">
+                    <div className="flex min-w-0 flex-col gap-2.5 md:gap-3">
+                        <motion.p
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            className="flex min-w-0 flex-wrap items-center gap-3 overflow-visible font-mono text-xs uppercase tracking-[0.2em] text-foreground/80"
+                        >
+                            <span className="shrink-0 text-accent">
+                                VANCOUVER
+                            </span>
+                            <span
+                                className="inline-block h-px w-8 shrink-0 self-center bg-foreground/40"
+                                aria-hidden
                             />
-                        ))}
+                            <span className="inline-flex min-h-[1.35em] items-center overflow-visible py-0.5">
+                                <VancouverWeather />
+                            </span>
+                            <span
+                                className="inline-block h-px w-8 shrink-0 self-center bg-foreground/40"
+                                aria-hidden
+                            />
+                            <span className="inline-flex min-h-[1.35em] items-center overflow-visible py-0.5">
+                                <LiveTimeTicker
+                                    timeZone="Etc/GMT+7"
+                                    tzLabel="PDT"
+                                />
+                            </span>
+                        </motion.p>
+                        <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.18 }}
+                        >
+                            <motion.p
+                                style={{
+                                    opacity: headlineOpacity,
+                                    y: headlineY,
+                                }}
+                                className="font-display text-3xl font-extrabold leading-[1.05] tracking-tight md:text-8xl"
+                            >
+                                <span className="hero-glass-ink">I </span>
+                                <span className="hero-glass-ink-accent">
+                                    design
+                                </span>
+                            </motion.p>
+                        </motion.div>
+                    </div>
+
+                    <div className="flex flex-col items-end gap-2.5 md:gap-3">
+                        <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                        >
+                            <CafeToastPlaygroundLink />
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.18 }}
+                        >
+                            <motion.p
+                                style={{
+                                    opacity: headlineOpacity,
+                                    y: headlineY,
+                                }}
+                                className="text-right font-display text-3xl font-extrabold leading-[1.05] tracking-tight md:text-8xl"
+                            >
+                                <span className="hero-glass-ink">to </span>
+                                <span className="hero-glass-ink-accent">
+                                    solve problems
+                                </span>
+                            </motion.p>
+                        </motion.div>
                     </div>
                 </div>
             </div>
