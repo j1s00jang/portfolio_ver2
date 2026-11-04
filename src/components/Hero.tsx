@@ -46,8 +46,8 @@ const HERO_OBJECTS: HeroObjectDef[] = [
         alt: "Cup of black coffee",
         blurb: (
             <>
-                Only drink <span className="text-accent">black coffee</span>.
-                Who else drinks sweet coffee anyway?
+                Only <span className="text-accent">black coffee</span>. Who else
+                drinks sweet coffee anyway?
             </>
         ),
         style: { left: "11%", top: "12%", width: "32%", zIndex: 4 },
@@ -58,9 +58,11 @@ const HERO_OBJECTS: HeroObjectDef[] = [
         alt: "A book of this month",
         blurb: (
             <>
-                Join my book club. This month, I'm reading{" "}
-                <span className="text-accent">Frankenstein</span> by Mary
-                Shelley.
+                Nov 2026, I'm reading{" "}
+                <span className="text-accent">
+                    The Buddha's Words: A New Interpretation
+                </span>{" "}
+                by Ryunosuke Koike.
             </>
         ),
         style: {
@@ -88,7 +90,8 @@ const HERO_OBJECTS: HeroObjectDef[] = [
         alt: "Autumn maple leaf",
         blurb: (
             <>
-                Crisp air, colourful leaves, and{" "}
+                My favorite season, <span className="text-accent">Autumn</span>,
+                my favorite holiday,{" "}
                 <span className="text-accent">Halloween</span>!
             </>
         ),
