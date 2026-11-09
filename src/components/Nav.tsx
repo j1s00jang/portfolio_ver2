@@ -9,7 +9,7 @@ const items = [
 ];
 
 const navLinkClass =
-    "relative text-foreground/80 hover:text-foreground transition-colors after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100";
+    "relative whitespace-nowrap text-foreground/80 transition-colors hover:text-foreground after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100";
 
 export function Nav() {
     const [scrolled, setScrolled] = useState(false);
@@ -27,22 +27,20 @@ export function Nav() {
         <header
             className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
                 scrolled
-                    ? "backdrop-blur-md bg-background/75 border-b border-border/60"
+                    ? "border-b border-border/60 bg-background/75 backdrop-blur-md"
                     : "bg-transparent"
             }`}
         >
-            <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6 md:px-10">
-                <div className="flex-1 flex justify-start">
-                    <Link
-                        to="/"
-                        {...(!onHome ? { hash: "work" } : {})}
-                        className="font-mono text-xs font-medium uppercase tracking-[0.2em] hover:text-accent transition-colors"
-                    >
-                        JISOO JANG
-                    </Link>
-                </div>
+            <div className="mx-auto flex h-14 max-w-[1440px] items-center gap-2.5 px-4 md:h-16 md:gap-6 md:px-10">
+                <Link
+                    to="/"
+                    {...(!onHome ? { hash: "work" } : {})}
+                    className="shrink-0 whitespace-nowrap font-mono text-[10px] font-medium uppercase tracking-[0.14em] transition-colors hover:text-accent md:text-xs md:tracking-[0.2em]"
+                >
+                    JISOO JANG
+                </Link>
 
-                <nav className="flex items-center gap-7 font-mono text-xs uppercase tracking-[0.2em]">
+                <nav className="ml-auto flex min-w-0 items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.1em] sm:gap-5 md:gap-7 md:text-xs md:tracking-[0.2em]">
                     {items.map((it) => {
                         const label = (
                             <>
@@ -64,7 +62,7 @@ export function Nav() {
                                 key={it.label}
                                 to="/"
                                 hash={it.href.slice(1)}
-                                className="text-foreground/80 hover:text-foreground transition-colors"
+                                className="whitespace-nowrap text-foreground/80 transition-colors hover:text-foreground"
                             >
                                 {label}
                             </Link>
@@ -72,9 +70,7 @@ export function Nav() {
                     })}
                 </nav>
 
-                <div className="flex-1 flex justify-end">
-                    <ThemeToggle />
-                </div>
+                <ThemeToggle />
             </div>
         </header>
     );

@@ -15,18 +15,22 @@ const CAFE_TOAST_URL = "https://cafe-toast.vercel.app";
 const CAFE_TOAST_BLURB =
     "Focus on your work at a virtual cafe with a timer and some ambient sounds. ☕️📖";
 
+type ObjectStyle = {
+    left: string;
+    top: string;
+    width: string;
+    rotate?: number;
+    zIndex?: number;
+};
+
 type HeroObjectDef = {
     id: string;
     src: string;
     alt: string;
     blurb: ReactNode;
-    style: {
-        left: string;
-        top: string;
-        width: string;
-        rotate?: number;
-        zIndex?: number;
-    };
+    style: ObjectStyle;
+    /** Tighter cluster for the mobile in-flow stage. */
+    mobileStyle?: ObjectStyle;
 };
 
 const HERO_OBJECTS: HeroObjectDef[] = [
@@ -42,7 +46,8 @@ const HERO_OBJECTS: HeroObjectDef[] = [
                 home!
             </>
         ),
-        style: { left: "44%", top: "8%", width: "20%", zIndex: 3 },
+        style: { left: "48%", top: "6%", width: "24%", zIndex: 3 },
+        mobileStyle: { left: "52%", top: "2%", width: "32%", zIndex: 3 },
     },
     {
         id: "coffee",
@@ -54,7 +59,8 @@ const HERO_OBJECTS: HeroObjectDef[] = [
                 drinks sweet coffee anyway?
             </>
         ),
-        style: { left: "16%", top: "13%", width: "27%", zIndex: 4 },
+        style: { left: "10%", top: "10%", width: "32%", zIndex: 4 },
+        mobileStyle: { left: "2%", top: "6%", width: "40%", zIndex: 4 },
     },
     {
         id: "book",
@@ -70,9 +76,16 @@ const HERO_OBJECTS: HeroObjectDef[] = [
             </>
         ),
         style: {
-            left: "38%",
-            top: "42%",
-            width: "22%",
+            left: "36%",
+            top: "40%",
+            width: "26%",
+            rotate: 8,
+            zIndex: 2,
+        },
+        mobileStyle: {
+            left: "30%",
+            top: "40%",
+            width: "34%",
             rotate: 8,
             zIndex: 2,
         },
@@ -86,7 +99,8 @@ const HERO_OBJECTS: HeroObjectDef[] = [
                 Who's living with <span className="text-accent">Toast</span>?
             </>
         ),
-        style: { left: "18%", top: "50%", width: "18%", zIndex: 5 },
+        style: { left: "12%", top: "46%", width: "22%", zIndex: 5 },
+        mobileStyle: { left: "4%", top: "52%", width: "28%", zIndex: 5 },
     },
     {
         id: "leaf",
@@ -100,16 +114,28 @@ const HERO_OBJECTS: HeroObjectDef[] = [
             </>
         ),
         style: {
-            left: "62%",
-            top: "36%",
-            width: "24%",
+            left: "66%",
+            top: "32%",
+            width: "28%",
+            rotate: -5,
+            zIndex: 4,
+        },
+        mobileStyle: {
+            left: "60%",
+            top: "42%",
+            width: "34%",
             rotate: -5,
             zIndex: 4,
         },
     },
 ];
 
-function CafeToastPlaygroundLink() {
+function prefersFineHover() {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+}
+
+function CafeToastPlaygroundLink({ className = "" }: { className?: string }) {
     const [tip, setTip] = useState<{ x: number; y: number } | null>(null);
 
     return (
@@ -118,13 +144,19 @@ function CafeToastPlaygroundLink() {
                 href={CAFE_TOAST_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative shrink-0 font-mono text-xs uppercase tracking-[0.2em] text-foreground/85 transition-colors hover:text-foreground after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100"
+                className={`relative shrink-0 font-mono text-[10px] uppercase tracking-[0.16em] text-foreground/85 transition-colors hover:text-foreground after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100 md:text-xs md:tracking-[0.2em] ${className}`}
                 onClick={(e) => {
                     e.preventDefault();
                     openFullscreenWindow(CAFE_TOAST_URL);
                 }}
-                onMouseEnter={(e) => setTip({ x: e.clientX, y: e.clientY })}
-                onMouseMove={(e) => setTip({ x: e.clientX, y: e.clientY })}
+                onMouseEnter={(e) => {
+                    if (!prefersFineHover()) return;
+                    setTip({ x: e.clientX, y: e.clientY });
+                }}
+                onMouseMove={(e) => {
+                    if (!prefersFineHover()) return;
+                    setTip({ x: e.clientX, y: e.clientY });
+                }}
                 onMouseLeave={() => setTip(null)}
             >
                 playground #1 <span className="text-accent">Cafe Toast</span>
@@ -176,7 +208,7 @@ function HeroScrollHint() {
         <motion.div
             initial={{ opacity: 0, y: 0 }}
             animate={controls}
-            className="pointer-events-none absolute bottom-8 right-6 z-30 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-foreground/70 md:bottom-12 md:right-10"
+            className="pointer-events-none absolute bottom-6 right-4 z-30 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/70 md:bottom-12 md:right-10 md:text-xs"
         >
             <span>Scroll</span>
             <ArrowDown
@@ -192,12 +224,18 @@ function HeroScrollHint() {
 function HeroObject({
     object,
     index,
+    layout = "desktop",
 }: {
     object: HeroObjectDef;
     index: number;
+    layout?: "desktop" | "mobile";
 }) {
     const [tip, setTip] = useState<{ x: number; y: number } | null>(null);
-    const baseRotate = object.style.rotate ?? 0;
+    const style =
+        layout === "mobile" && object.mobileStyle
+            ? object.mobileStyle
+            : object.style;
+    const baseRotate = style.rotate ?? 0;
 
     return (
         <>
@@ -215,17 +253,39 @@ function HeroObject({
                     y: -12,
                     rotate: baseRotate + (index % 2 === 0 ? -3.5 : 3.5),
                     scale: 1.05,
-                    transition: { type: "spring", stiffness: 320, damping: 18 },
+                    transition: {
+                        type: "spring",
+                        stiffness: 320,
+                        damping: 18,
+                    },
                 }}
                 className="absolute origin-center cursor-pointer border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
                 style={{
-                    left: object.style.left,
-                    top: object.style.top,
-                    width: object.style.width,
-                    zIndex: object.style.zIndex ?? 2,
+                    left: style.left,
+                    top: style.top,
+                    width: style.width,
+                    zIndex: style.zIndex ?? 2,
                 }}
-                onMouseEnter={(e) => setTip({ x: e.clientX, y: e.clientY })}
-                onMouseMove={(e) => setTip({ x: e.clientX, y: e.clientY })}
+                onClick={(e) => {
+                    if (prefersFineHover()) return;
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    setTip((prev) =>
+                        prev
+                            ? null
+                            : {
+                                  x: rect.left + rect.width / 2,
+                                  y: rect.top + rect.height * 0.3,
+                              },
+                    );
+                }}
+                onMouseEnter={(e) => {
+                    if (!prefersFineHover()) return;
+                    setTip({ x: e.clientX, y: e.clientY });
+                }}
+                onMouseMove={(e) => {
+                    if (!prefersFineHover()) return;
+                    setTip({ x: e.clientX, y: e.clientY });
+                }}
                 onMouseLeave={() => setTip(null)}
             >
                 <motion.span
@@ -257,6 +317,60 @@ function HeroObject({
     );
 }
 
+function VancouverMeta({ className = "" }: { className?: string }) {
+    return (
+        <p
+            className={`flex min-w-0 flex-wrap items-center gap-x-2.5 gap-y-1.5 overflow-visible font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/80 md:gap-3 md:text-xs md:tracking-[0.2em] ${className}`}
+        >
+            <span className="shrink-0 text-accent">VANCOUVER</span>
+            <span
+                className="inline-block h-px w-5 shrink-0 self-center bg-foreground/40 md:w-8"
+                aria-hidden
+            />
+            <span className="inline-flex min-h-[1.35em] items-center overflow-visible py-0.5">
+                <VancouverWeather />
+            </span>
+            <span
+                className="inline-block h-px w-5 shrink-0 self-center bg-foreground/40 md:w-8"
+                aria-hidden
+            />
+            <span className="inline-flex min-h-[1.35em] items-center overflow-visible py-0.5">
+                <LiveTimeTicker
+                    timeZone="Etc/GMT+7"
+                    tzLabel="PDT"
+                />
+            </span>
+        </p>
+    );
+}
+
+function GlassHeadline({
+    children,
+    className = "",
+    opacity,
+    y,
+}: {
+    children: ReactNode;
+    className?: string;
+    opacity: ReturnType<typeof useTransform<number, number>>;
+    y: ReturnType<typeof useTransform<number, number>>;
+}) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.18 }}
+        >
+            <motion.p
+                style={{ opacity, y }}
+                className={`font-display font-extrabold leading-[1.05] tracking-tight ${className}`}
+            >
+                {children}
+            </motion.p>
+        </motion.div>
+    );
+}
+
 export function Hero() {
     const sectionRef = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({
@@ -269,7 +383,7 @@ export function Hero() {
     return (
         <section
             ref={sectionRef}
-            className="relative min-h-[100svh] overflow-hidden"
+            className="relative flex min-h-[100svh] flex-col overflow-hidden"
         >
             <div
                 className="absolute inset-0 bg-[#f3eee6] bg-cover bg-center"
@@ -282,70 +396,83 @@ export function Hero() {
                 aria-hidden
             />
 
-            {/* Objects pinned to section; `top` anchors the stage so copy height can't push them. */}
-            <div className="pointer-events-none absolute inset-x-0 top-[26%] z-10 flex justify-center px-6 md:top-[28%] md:px-10">
-                <div className="pointer-events-auto relative aspect-[16/10] w-full max-w-5xl">
+            {/* Desktop objects — pinned mid-stage */}
+            <div className="pointer-events-none absolute inset-x-0 top-[26%] z-10 hidden justify-center px-10 md:flex">
+                <div className="pointer-events-auto relative aspect-[16/10] w-full max-w-6xl">
                     {HERO_OBJECTS.map((object, index) => (
                         <HeroObject
                             key={object.id}
                             object={object}
                             index={index}
+                            layout="desktop"
                         />
                     ))}
                 </div>
             </div>
 
-            <div className="pointer-events-none relative z-20 mx-auto flex min-h-[100svh] w-full max-w-[1440px] flex-col px-6 pb-24 pt-28 md:px-10 md:pb-28 md:pt-32">
-                <div className="pointer-events-auto mb-4 flex flex-wrap items-start justify-between gap-x-6 gap-y-4 md:mb-6">
-                    <div className="flex min-w-0 flex-col gap-2.5 md:gap-3">
-                        <motion.p
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                            className="flex min-w-0 flex-wrap items-center gap-3 overflow-visible font-mono text-xs uppercase tracking-[0.2em] text-foreground/80"
+            {/* Copy */}
+            <div className="pointer-events-none relative z-20 mx-auto w-full max-w-[1440px] px-4 pt-20 md:px-10 md:pt-32">
+                {/* Mobile: stacked, left-aligned — clear of objects */}
+                <div className="pointer-events-auto flex flex-col gap-3 md:hidden">
+                    <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                    >
+                        <VancouverMeta />
+                    </motion.div>
+
+                    <div className="flex flex-col gap-1.5">
+                        <GlassHeadline
+                            opacity={headlineOpacity}
+                            y={headlineY}
+                            className="text-[clamp(1.85rem,9vw,2.35rem)]"
                         >
-                            <span className="shrink-0 text-accent">
-                                VANCOUVER
+                            <span className="hero-glass-ink">I </span>
+                            <span className="hero-glass-ink-accent">design</span>
+                        </GlassHeadline>
+                        <GlassHeadline
+                            opacity={headlineOpacity}
+                            y={headlineY}
+                            className="text-[clamp(1.85rem,9vw,2.35rem)]"
+                        >
+                            <span className="hero-glass-ink">to </span>
+                            <span className="hero-glass-ink-accent">
+                                solve problems
                             </span>
-                            <span
-                                className="inline-block h-px w-8 shrink-0 self-center bg-foreground/40"
-                                aria-hidden
-                            />
-                            <span className="inline-flex min-h-[1.35em] items-center overflow-visible py-0.5">
-                                <VancouverWeather />
-                            </span>
-                            <span
-                                className="inline-block h-px w-8 shrink-0 self-center bg-foreground/40"
-                                aria-hidden
-                            />
-                            <span className="inline-flex min-h-[1.35em] items-center overflow-visible py-0.5">
-                                <LiveTimeTicker
-                                    timeZone="Etc/GMT+7"
-                                    tzLabel="PDT"
-                                />
-                            </span>
-                        </motion.p>
+                        </GlassHeadline>
+                    </div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.22 }}
+                    >
+                        <CafeToastPlaygroundLink />
+                    </motion.div>
+                </div>
+
+                {/* Desktop: split columns */}
+                <div className="pointer-events-auto mb-4 hidden items-start justify-between gap-x-6 gap-y-4 md:mb-6 md:flex">
+                    <div className="flex min-w-0 flex-col gap-3">
                         <motion.div
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.18 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
                         >
-                            <motion.p
-                                style={{
-                                    opacity: headlineOpacity,
-                                    y: headlineY,
-                                }}
-                                className="font-display text-3xl font-extrabold leading-[1.05] tracking-tight md:text-8xl"
-                            >
-                                <span className="hero-glass-ink">I </span>
-                                <span className="hero-glass-ink-accent">
-                                    design
-                                </span>
-                            </motion.p>
+                            <VancouverMeta />
                         </motion.div>
+                        <GlassHeadline
+                            opacity={headlineOpacity}
+                            y={headlineY}
+                            className="text-8xl"
+                        >
+                            <span className="hero-glass-ink">I </span>
+                            <span className="hero-glass-ink-accent">design</span>
+                        </GlassHeadline>
                     </div>
 
-                    <div className="flex flex-col items-end gap-2.5 md:gap-3">
+                    <div className="flex flex-col items-end gap-3">
                         <motion.div
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -353,32 +480,38 @@ export function Hero() {
                         >
                             <CafeToastPlaygroundLink />
                         </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.18 }}
+                        <GlassHeadline
+                            opacity={headlineOpacity}
+                            y={headlineY}
+                            className="text-right text-8xl"
                         >
-                            <motion.p
-                                style={{
-                                    opacity: headlineOpacity,
-                                    y: headlineY,
-                                }}
-                                className="text-right font-display text-3xl font-extrabold leading-[1.05] tracking-tight md:text-8xl"
-                            >
-                                <span className="hero-glass-ink">to </span>
-                                <span className="hero-glass-ink-accent">
-                                    solve problems
-                                </span>
-                            </motion.p>
-                        </motion.div>
+                            <span className="hero-glass-ink">to </span>
+                            <span className="hero-glass-ink-accent">
+                                solve problems
+                            </span>
+                        </GlassHeadline>
                     </div>
+                </div>
+            </div>
+
+            {/* Mobile objects — sit in remaining viewport below copy */}
+            <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-1 pb-12 pt-1 md:hidden">
+                <div className="pointer-events-auto relative aspect-[5/4] w-full max-w-[min(26rem,96vw)]">
+                    {HERO_OBJECTS.map((object, index) => (
+                        <HeroObject
+                            key={`m-${object.id}`}
+                            object={object}
+                            index={index}
+                            layout="mobile"
+                        />
+                    ))}
                 </div>
             </div>
 
             <HeroScrollHint />
 
             <div
-                className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-40 bg-gradient-to-b from-transparent via-background/50 to-background md:h-52"
+                className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-28 bg-gradient-to-b from-transparent via-background/50 to-background md:h-52"
                 aria-hidden
             />
         </section>

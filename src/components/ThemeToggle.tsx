@@ -13,7 +13,9 @@ export function ThemeToggle() {
       aria-label="Toggle theme"
       className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-foreground/80 transition-colors hover:text-foreground"
     >
-      <span className="min-w-0 shrink text-right">{isDark ? "LIGHT" : "DARK"}</span>
+      <span className="hidden min-w-0 shrink text-right sm:inline">
+        {isDark ? "LIGHT" : "DARK"}
+      </span>
       <span
         className={cn(
           "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border/60 transition-[background-color,border-color,color] duration-200 [&_svg]:transition-colors",
