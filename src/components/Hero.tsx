@@ -223,7 +223,7 @@ function HeroScrollHint() {
 
 function HeroGlassTip({ children }: { children: ReactNode }) {
     return (
-        <div className="rounded-lg border border-accent/70 bg-background/55 px-3.5 py-2.5 text-foreground shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-md dark:border-accent/60 dark:bg-background/60 dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+        <div className="hero-tip rounded-lg border border-accent/70 bg-background/55 px-3.5 py-2.5 text-foreground shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-md dark:border-accent/60 dark:bg-background/60 dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
             <p className="font-mono text-[10px] uppercase leading-snug tracking-[0.14em] md:text-[11px]">
                 {children}
             </p>
@@ -400,7 +400,7 @@ export function Hero() {
     return (
         <section
             ref={sectionRef}
-            className="relative flex min-h-[100svh] flex-col overflow-hidden"
+            className="hero-surface relative flex min-h-[100svh] flex-col overflow-hidden"
         >
             <div
                 className="absolute inset-0 bg-[#f3eee6] bg-cover bg-center"
@@ -443,7 +443,7 @@ export function Hero() {
                         <GlassHeadline
                             opacity={headlineOpacity}
                             y={headlineY}
-                            className="text-[clamp(1.85rem,9vw,2.35rem)]"
+                            className="text-[clamp(2.35rem,11vw,3rem)]"
                         >
                             <span className="hero-glass-ink">I </span>
                             <span className="hero-glass-ink-accent">design</span>
@@ -451,7 +451,7 @@ export function Hero() {
                         <GlassHeadline
                             opacity={headlineOpacity}
                             y={headlineY}
-                            className="text-[clamp(1.85rem,9vw,2.35rem)]"
+                            className="text-[clamp(2.35rem,11vw,3rem)]"
                         >
                             <span className="hero-glass-ink">to </span>
                             <span className="hero-glass-ink-accent">

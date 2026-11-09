@@ -5,6 +5,11 @@ import { useState } from "react";
 import { projects } from "@/lib/projects";
 import { CursorSpeechBubble } from "./CursorSpeechBubble";
 
+function canShowWorkTip() {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+}
+
 export function WorkList() {
     const [tip, setTip] = useState<{
         x: number;
@@ -43,20 +48,22 @@ export function WorkList() {
                                 ease: [0.22, 1, 0.36, 1],
                             }}
                             className="border-b border-border/70"
-                            onMouseEnter={(e) =>
+                            onMouseEnter={(e) => {
+                                if (!canShowWorkTip()) return;
                                 setTip({
                                     x: e.clientX,
                                     y: e.clientY,
                                     text: p.hoverBlurb ?? p.summary,
-                                })
-                            }
-                            onMouseMove={(e) =>
+                                });
+                            }}
+                            onMouseMove={(e) => {
+                                if (!canShowWorkTip()) return;
                                 setTip({
                                     x: e.clientX,
                                     y: e.clientY,
                                     text: p.hoverBlurb ?? p.summary,
-                                })
-                            }
+                                });
+                            }}
                         >
                             <Link
                                 to="/work/$slug"

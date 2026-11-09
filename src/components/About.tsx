@@ -94,7 +94,7 @@ function PhotoHoverPhrase({
     return (
         <>
             <span
-                className="relative cursor-default underline decoration-accent/40 decoration-2 underline-offset-[0.18em] transition-colors hover:text-accent hover:decoration-accent"
+                className="about-photo-phrase relative cursor-default underline decoration-accent/40 decoration-2 underline-offset-[0.18em] transition-colors hover:text-accent hover:decoration-accent dark:decoration-accent/70"
                 onMouseEnter={(e) => setTip({ x: e.clientX, y: e.clientY })}
                 onMouseMove={(e) => setTip({ x: e.clientX, y: e.clientY })}
                 onMouseLeave={() => setTip(null)}
@@ -117,7 +117,7 @@ export function About() {
     return (
         <section
             id="about"
-            className="px-6 md:px-10 py-24 md:py-40 scroll-mt-20 border-t border-border/70"
+            className="about-surface px-6 md:px-10 py-24 md:py-40 scroll-mt-20 border-t border-border/70"
         >
             <div className="mx-auto max-w-[1440px]">
                 <div className="mb-14 flex items-baseline justify-between">
