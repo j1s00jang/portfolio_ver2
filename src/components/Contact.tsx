@@ -34,12 +34,12 @@ export function Contact() {
             id="contact"
             className="px-6 md:px-10 py-24 md:py-40 scroll-mt-20 border-t border-border/70"
         >
-            <div className="mx-auto max-w-[1440px]">
-                <div className="mb-14 flex items-baseline justify-between">
+            <div className="@container mx-auto max-w-[1440px]">
+                <div className="mb-14 flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between md:gap-6">
                     <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
                         Contact
                     </h2>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="max-w-md text-xs leading-relaxed text-muted-foreground md:text-right">
                         Want to talk about cats or more photos of Toast? Contact
                         me anytime! 😉
                     </span>
@@ -51,14 +51,16 @@ export function Contact() {
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.7 }}
                 >
-                    <p className="font-display text-2xl md:text-4xl font-medium tracking-tight text-foreground/60 mb-4">
-                        Always happy to talk design! Or, just say hi. 🍁
+                    <p className="mb-4 font-display text-2xl font-medium tracking-tight text-foreground/60 md:text-4xl">
+                        Always happy to talk design!
+                        <br />
+                        Or, just say hi. 🍁
                     </p>
                     <a
                         href={`mailto:${email}`}
-                        className="group inline-block font-display text-[clamp(2.25rem,8vw,7rem)] font-semibold leading-none tracking-tight"
+                        className="group inline-block max-w-full font-display text-[clamp(1.5rem,8.5cqi,7rem)] font-semibold leading-[1.15] tracking-tight [overflow-wrap:anywhere] transition-colors duration-300 ease-out hover:text-accent"
                     >
-                        <span className="bg-[linear-gradient(var(--color-accent),var(--color-accent))] bg-[length:0%_2px] bg-no-repeat bg-[position:0_100%] transition-[background-size] duration-500 ease-out group-hover:bg-[length:100%_2px] group-hover:text-accent">
+                        <span className="border-b border-accent pb-0.5">
                             {email}
                         </span>
                     </a>

@@ -221,14 +221,28 @@ function HeroScrollHint() {
     );
 }
 
+function HeroGlassTip({ children }: { children: ReactNode }) {
+    return (
+        <div className="rounded-lg border border-accent/70 bg-background/55 px-3.5 py-2.5 text-foreground shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-md dark:border-accent/60 dark:bg-background/60 dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+            <p className="font-mono text-[10px] uppercase leading-snug tracking-[0.14em] md:text-[11px]">
+                {children}
+            </p>
+        </div>
+    );
+}
+
 function HeroObject({
     object,
     index,
     layout = "desktop",
+    mobileTipActive = false,
+    onMobileTipToggle,
 }: {
     object: HeroObjectDef;
     index: number;
     layout?: "desktop" | "mobile";
+    mobileTipActive?: boolean;
+    onMobileTipToggle?: (id: string) => void;
 }) {
     const [tip, setTip] = useState<{ x: number; y: number } | null>(null);
     const style =
@@ -236,12 +250,14 @@ function HeroObject({
             ? object.mobileStyle
             : object.style;
     const baseRotate = style.rotate ?? 0;
+    const showGlow = layout === "mobile" ? mobileTipActive : Boolean(tip);
 
     return (
         <>
             <motion.button
                 type="button"
                 aria-label={object.alt}
+                aria-expanded={layout === "mobile" ? mobileTipActive : undefined}
                 initial={{ opacity: 0, y: 20, scale: 0.96, rotate: baseRotate }}
                 animate={{ opacity: 1, y: 0, scale: 1, rotate: baseRotate }}
                 transition={{
@@ -266,30 +282,25 @@ function HeroObject({
                     width: style.width,
                     zIndex: style.zIndex ?? 2,
                 }}
-                onClick={(e) => {
-                    if (prefersFineHover()) return;
-                    const rect = e.currentTarget.getBoundingClientRect();
-                    setTip((prev) =>
-                        prev
-                            ? null
-                            : {
-                                  x: rect.left + rect.width / 2,
-                                  y: rect.top + rect.height * 0.3,
-                              },
-                    );
+                onClick={() => {
+                    if (layout !== "mobile") return;
+                    onMobileTipToggle?.(object.id);
                 }}
                 onMouseEnter={(e) => {
-                    if (!prefersFineHover()) return;
+                    if (layout === "mobile" || !prefersFineHover()) return;
                     setTip({ x: e.clientX, y: e.clientY });
                 }}
                 onMouseMove={(e) => {
-                    if (!prefersFineHover()) return;
+                    if (layout === "mobile" || !prefersFineHover()) return;
                     setTip({ x: e.clientX, y: e.clientY });
                 }}
-                onMouseLeave={() => setTip(null)}
+                onMouseLeave={() => {
+                    if (layout === "mobile") return;
+                    setTip(null);
+                }}
             >
                 <motion.span
-                    className={`hero-object-glow block${tip ? " is-hovered" : ""}`}
+                    className={`hero-object-glow block${showGlow ? " is-hovered" : ""}`}
                     animate={{ y: [0, index % 2 === 0 ? -7 : 6, 0] }}
                     transition={{
                         duration: 5.8 + index * 0.35,
@@ -305,7 +316,7 @@ function HeroObject({
                     />
                 </motion.span>
             </motion.button>
-            {tip ? (
+            {layout === "desktop" && tip ? (
                 <CursorSpeechBubble
                     x={tip.x}
                     y={tip.y}
@@ -373,12 +384,18 @@ function GlassHeadline({
 
 export function Hero() {
     const sectionRef = useRef<HTMLElement>(null);
+    const [mobileTipId, setMobileTipId] = useState<string | null>(null);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
         offset: ["start start", "35% start"],
     });
     const headlineOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
     const headlineY = useTransform(scrollYProgress, [0, 1], [0, -10]);
+    const mobileTip = HERO_OBJECTS.find((object) => object.id === mobileTipId);
+
+    function toggleMobileTip(id: string) {
+        setMobileTipId((prev) => (prev === id ? null : id));
+    }
 
     return (
         <section
@@ -494,8 +511,25 @@ export function Hero() {
                 </div>
             </div>
 
-            {/* Mobile objects — sit in remaining viewport below copy */}
+            {/* Mobile objects — tip overlays above the stage so layout never shifts */}
             <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-1 pb-12 pt-1 md:hidden">
+                <div
+                    className="pointer-events-none absolute inset-x-0 top-[8%] z-30 flex justify-center px-4"
+                    aria-live="polite"
+                >
+                    {mobileTip ? (
+                        <motion.div
+                            key={mobileTip.id}
+                            initial={{ opacity: 0, y: 6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.22, ease: "easeOut" }}
+                            className="w-full max-w-[min(18rem,calc(100vw-2rem))]"
+                        >
+                            <HeroGlassTip>{mobileTip.blurb}</HeroGlassTip>
+                        </motion.div>
+                    ) : null}
+                </div>
+
                 <div className="pointer-events-auto relative aspect-[5/4] w-full max-w-[min(26rem,96vw)]">
                     {HERO_OBJECTS.map((object, index) => (
                         <HeroObject
@@ -503,6 +537,8 @@ export function Hero() {
                             object={object}
                             index={index}
                             layout="mobile"
+                            mobileTipActive={mobileTipId === object.id}
+                            onMobileTipToggle={toggleMobileTip}
                         />
                     ))}
                 </div>
